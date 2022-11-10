@@ -1,0 +1,46 @@
+package com.masai.model;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+public class Reservation {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer reservationId;
+	private String reservationStatus;
+	private String reservationType;
+	private LocalDate reservationDate;
+	private LocalTime reservationTime;
+	private String sourse;
+	private String destination;
+	
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	private Bus bus;
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	private User user;
+	
+	
+	public Reservation() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,144 @@
+package com.masai.model;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+public class Reservation {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer reservationId;
+	private String reservationStatus;
+	private String reservationType;
+	private LocalDate reservationDate;
+	private LocalTime reservationTime;
+	private String sourse;
+	private String destination;
+	
+	
+//	@JsonIgnore
+//	@OneToOne(cascade = CascadeType.ALL)
+//	private Bus bus;
+//	
+//	@JsonIgnore
+//	@OneToOne(cascade = CascadeType.ALL)
+//	private User user;
+	
+	
+	public Reservation() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Integer getReservationId() {
+		return reservationId;
+	}
+
+
+	public void setReservationId(Integer reservationId) {
+		this.reservationId = reservationId;
+	}
+
+
+	public String getReservationStatus() {
+		return reservationStatus;
+	}
+
+
+	public void setReservationStatus(String reservationStatus) {
+		this.reservationStatus = reservationStatus;
+	}
+
+
+	public String getReservationType() {
+		return reservationType;
+	}
+
+
+	public void setReservationType(String reservationType) {
+		this.reservationType = reservationType;
+	}
+
+
+	public LocalDate getReservationDate() {
+		return reservationDate;
+	}
+
+
+	public void setReservationDate(LocalDate reservationDate) {
+		this.reservationDate = reservationDate;
+	}
+
+
+	public LocalTime getReservationTime() {
+		return reservationTime;
+	}
+
+
+	public void setReservationTime(LocalTime reservationTime) {
+		this.reservationTime = reservationTime;
+	}
+
+
+	public String getSourse() {
+		return sourse;
+	}
+
+
+	public void setSourse(String sourse) {
+		this.sourse = sourse;
+	}
+
+
+	public String getDestination() {
+		return destination;
+	}
+
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
+
+	public Bus getBus() {
+		return bus;
+	}
+
+
+	public void setBus(Bus bus) {
+		this.bus = bus;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Reservation [reservationId=" + reservationId + ", reservationStatus=" + reservationStatus
+				+ ", reservationType=" + reservationType + ", reservationDate=" + reservationDate + ", reservationTime="
+				+ reservationTime + ", sourse=" + sourse + ", destination=" + destination + "]";
+	}
+	
+	
+	
+	
+	
+}
