@@ -1,0 +1,31 @@
+package com.masai.model;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import javax.persistence.CascadeType;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+public class Reservation {
+
+	private Integer reservationId;
+	private String reservationStatus;
+	private String reservationType;
+	private LocalDate reservationDate;
+	private LocalTime reservationTime;
+	private String sourse;
+	private String destination;
+	
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	private Bus bus;
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	private User user;
+	
+	
+}
