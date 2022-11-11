@@ -1,6 +1,7 @@
 package com.masai.model;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,20 +33,7 @@ public class Bus {
 	
 	private Integer availabeSeats;
 
-	public Bus(Integer busId, String busName, String driverName, String busType, String routeForm, String routeTo,
-			LocalTime arrivalTime, LocalTime departureTime, Integer seats, Integer availabeSeats) {
-		super();
-		this.busId = busId;
-		this.busName = busName;
-		this.driverName = driverName;
-		this.busType = busType;
-		this.routeForm = routeForm;
-		this.routeTo = routeTo;
-		this.arrivalTime = arrivalTime;
-		this.departureTime = departureTime;
-		this.seats = seats;
-		this.availabeSeats = availabeSeats;
-	}
+	
 
 	public Bus() {
 		super();
@@ -103,16 +91,18 @@ public class Bus {
 		return arrivalTime;
 	}
 
-	public void setArrivalTime(LocalTime arrivalTime) {
-		this.arrivalTime = arrivalTime;
+	public void setArrivalTime(String arrivalTime) {
+		
+		this.arrivalTime = LocalTime.parse(arrivalTime);
 	}
 
 	public LocalTime getDepartureTime() {
 		return departureTime;
 	}
 
-	public void setDepartureTime(LocalTime departureTime) {
-		this.departureTime = departureTime;
+	public void setDepartureTime(String departureTime) {
+		
+		this.departureTime = LocalTime.parse(departureTime);
 	}
 
 	public Integer getSeats() {
