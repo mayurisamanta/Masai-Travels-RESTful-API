@@ -9,4 +9,6 @@ public interface ReservationService {
 	
 	public Reservation updateReservation(Reservation reservation)throws ReservationException;
 	
+	public Reservation deleteReservation(Integer reservationId) throws ReservationException;
+	
 }
