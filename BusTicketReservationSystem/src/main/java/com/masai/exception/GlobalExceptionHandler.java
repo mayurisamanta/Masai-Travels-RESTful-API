@@ -46,4 +46,14 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.INTERNAL_SERVER_ERROR);
 		
 	}
+	@ExceptionHandler(BusException.class)
+	public ResponseEntity<MyErrorDetails> myBusException(BusException be, WebRequest webReq){
+		
+		MyErrorDetails red = new MyErrorDetails();
+		red.setTimestamp(LocalDateTime.now());
+		red.setMessage(be.getMessage());
+		red.setDetails(webReq.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(red, HttpStatus.BAD_REQUEST);
+	}
 }
