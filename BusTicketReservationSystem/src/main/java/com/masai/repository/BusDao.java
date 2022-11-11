@@ -12,5 +12,5 @@ import com.masai.model.Bus;
 public interface BusDao extends JpaRepository<Bus, Integer> {
 	
 	public List<Bus> findByBusType(String busType);
-	
+
 }

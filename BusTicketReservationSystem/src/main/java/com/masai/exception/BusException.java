@@ -11,5 +11,4 @@ public class BusException extends Exception {
 		super(message);
 	}
 
-
 }
