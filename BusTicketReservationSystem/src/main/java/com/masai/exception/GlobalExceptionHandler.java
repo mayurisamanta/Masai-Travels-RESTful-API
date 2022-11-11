@@ -10,6 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
 	
 	
 	@ExceptionHandler(RouteException.class)
@@ -23,6 +24,7 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(red, HttpStatus.BAD_REQUEST);
 		
 	}
+
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> otherExceptionHandler(Exception se, WebRequest req){

@@ -27,6 +27,7 @@ public class Route {
 	private List<Bus> buslist;
 
 
+
 //	public Route(Integer routeId, String routeFrom, String routeTo, Integer distance, List<Bus> buslist) {
 //		super();
 //		this.routeId = routeId;
@@ -35,6 +36,16 @@ public class Route {
 //		this.distance = distance;
 //		this.buslist = buslist;
 //	}
+
+	public Route(Integer routeId, String routeFrom, String routeTo, Integer distance, List<Bus> buslist) {
+		super();
+		this.routeId = routeId;
+		this.routeFrom = routeFrom;
+		this.routeTo = routeTo;
+		this.distance = distance;
+		this.buslist = buslist;
+	}
+
 
 
 	public Route() {
