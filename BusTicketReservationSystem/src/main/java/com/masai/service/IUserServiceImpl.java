@@ -45,7 +45,7 @@ public class IUserServiceImpl implements IUserService{
 	@Override
 	public List<User> viewAllUsers() throws UserException {
 		List<User> users=uRepo.findAll();
-		if(users!=null) {
+		if(users.size()!=0) {
 			return users;
 		}else {
 			throw new UserException("No User Found.");
