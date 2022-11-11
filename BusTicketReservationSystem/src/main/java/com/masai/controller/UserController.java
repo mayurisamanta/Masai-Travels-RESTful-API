@@ -1,9 +1,5 @@
 package com.masai.controller;
 
-
-public class UserController {
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +51,4 @@ public class UserController {
 		List<User> users=uService.viewAllUsers();
 		return new ResponseEntity<List<User>>(users,HttpStatus.FOUND);
 	}
-
 }
