@@ -2,6 +2,7 @@ package com.masai.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,8 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+//import com.masai.exception.CustomDateDeserializer;
 
 @Entity
 public class Reservation {
@@ -23,6 +31,9 @@ public class Reservation {
 	
 	private String reservationType;
 	
+	
+//	@NotNull(message = "Date is required")
+	@JsonFormat(pattern = "yyyy-MM-dd", shape = Shape.STRING)
 	private LocalDate reservationDate;
 	
 	private LocalTime reservationTime;
@@ -32,27 +43,26 @@ public class Reservation {
 	private String destination;
 	
 	
-	@JsonIgnore
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Bus bus;
 
 
-	public Reservation(Integer reservationId, String reservationStatus, String reservationType,
-			LocalDate reservationDate, LocalTime reservationTime, String source, String destination, Bus bus) {
-		super();
-		this.reservationId = reservationId;
-		this.reservationStatus = reservationStatus;
-		this.reservationType = reservationType;
-		this.reservationDate = reservationDate;
-		this.reservationTime = reservationTime;
-		this.source = source;
-		this.destination = destination;
-		this.bus = bus;
-	}
+//	public Reservation(Integer reservationId, String reservationStatus, String reservationType,
+//			LocalDate reservationDate, LocalTime reservationTime, String source, String destination) {
+//		super();
+//		this.reservationId = reservationId;
+//		this.reservationStatus = reservationStatus;
+//		this.reservationType = reservationType;
+//		this.reservationDate = reservationDate;
+//		this.reservationTime = reservationTime;
+//		this.source = source;
+//		this.destination = destination;
+//	}
 
 
 	public Reservation() {
-		super();
+		
 	}
 
 
