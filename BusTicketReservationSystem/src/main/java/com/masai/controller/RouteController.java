@@ -24,7 +24,7 @@ public class RouteController {
 	private RouteServiceImpl rService;
 	
 	@PostMapping("/addRoute")
-    public ResponseEntity<Route> addRoute(@RequestBody Route route) throws RouteException {
+    public ResponseEntity<Route> addRouteHandler(@RequestBody Route route) throws RouteException {
 		
 		Route rot = rService.addRoute(route);
 		
