@@ -1,5 +1,6 @@
 package com.masai.service;
 
+import java.lang.StackWalker.Option;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -48,6 +49,30 @@ public class ReservationServiceImpl implements ReservationService {
 		else {
 			
 			throw new ReservationException("Invalid Student Details....!");
+			
+		}
+		
+	}
+
+
+	@Override
+	public Reservation deleteReservation(Integer reservationId) throws ReservationException {
+		
+		Optional<Reservation> opt = rDao.findById(reservationId);
+		
+		if(opt.isPresent()) {
+			
+			
+			Reservation existingReservation = opt.get();
+			
+			rDao.delete(existingReservation);
+			
+			return existingReservation;
+			
+		}
+		else {
+			
+			throw new ReservationException("Reservation is not present with this Reservation ID :" + reservationId);
 			
 		}
 		
