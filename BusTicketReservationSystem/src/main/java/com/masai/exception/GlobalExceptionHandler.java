@@ -22,4 +22,33 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.INTERNAL_SERVER_ERROR);
 		
 	}
+	
+	
+	@ExceptionHandler(ReservationException.class)
+	public ResponseEntity<MyErrorDetails> reservationExceptionHandler(ReservationException se, WebRequest req){
+	
+		MyErrorDetails err= new MyErrorDetails();
+			err.setTimestamp(LocalDateTime.now());
+			err.setMessage(se.getMessage());
+			err.setDetails(req.getDescription(false));
+				
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	
+	@ExceptionHandler(DateTimeException.class)
+	public ResponseEntity<MyErrorDetails> DateTimeExceptionHandler(DateTimeException se, WebRequest req){
+	
+		MyErrorDetails err= new MyErrorDetails();
+			err.setTimestamp(LocalDateTime.now());
+			err.setMessage(se.getMessage());
+			err.setDetails(req.getDescription(false));
+				
+		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	
+	
 }

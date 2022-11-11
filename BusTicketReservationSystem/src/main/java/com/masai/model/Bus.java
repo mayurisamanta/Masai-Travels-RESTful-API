@@ -48,7 +48,7 @@ public class Bus {
 	}
 
 	public Bus() {
-		super();
+		
 	}
 
 	public Integer getBusId() {
@@ -98,6 +98,10 @@ public class Bus {
 	public void setRouteTo(String routeTo) {
 		this.routeTo = routeTo;
 	}
+
+	
+
+	
 
 	public LocalTime getArrivalTime() {
 		return arrivalTime;
