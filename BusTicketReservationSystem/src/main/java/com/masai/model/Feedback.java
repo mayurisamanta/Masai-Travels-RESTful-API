@@ -27,6 +27,14 @@ public class Feedback {
 	private String comments;
 	
 	private LocalDate feedbackDate;
+	
+//	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	private User user;
+	
+//	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
+	private Bus bus;
 
 	public Feedback() {
 		super();
@@ -44,14 +52,6 @@ public class Feedback {
 		this.user = user;
 		this.bus = bus;
 	}
-
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
-	private User user;
-	
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
-	private Bus bus;
 
 	public Integer getFeedbackId() {
 		return feedbackId;

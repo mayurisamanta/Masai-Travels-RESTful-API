@@ -6,17 +6,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exception.FeedbackException;
+import com.masai.exception.UserException;
+import com.masai.model.Bus;
 import com.masai.model.Feedback;
+import com.masai.model.User;
+import com.masai.repository.BusDao;
 import com.masai.repository.FeedbackDao;
+import com.masai.repository.UserRepo;
 
 @Service
 public class IFeedbackServiceImpl implements IFeedbackService{
 
 	@Autowired
 	private FeedbackDao fdao;
-
+	
+	@Autowired
+	private UserRepo udao;
+	
+	@Autowired
+	private BusDao bdao;
+	
 	@Override
-	public Feedback addFeedback(Feedback feedback) throws FeedbackException {
+	public Feedback addFeedback(Integer userLoginId, Integer busId, Feedback feedback) throws FeedbackException, UserException, BusException {
+		
+		User u = udao.findById(userLoginId).orElseThrow(() -> new UserException("User with Id " + userLoginId + " not found"));
+		
+		Bus b = bdao.findById(busId).orElseThrow(() -> new BusException("Bus with Id " + busId + " not found"));
+		
 		Feedback f = fdao.save(feedback);
 		return f;
 	}
@@ -43,6 +59,8 @@ public class IFeedbackServiceImpl implements IFeedbackService{
 		if (!f.isEmpty()) return f;
 		else throw new FeedbackException("Feedback not found");
 	}
+
+	
 	
 	
 }
