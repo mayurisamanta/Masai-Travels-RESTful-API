@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +33,24 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public Reservation updateReservation(Reservation reservation) throws ReservationException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Optional<Reservation> opt = rDao.findById(reservation.getReservationId());
+		
+		if(opt.isPresent()) {
+			
+			
+			Reservation updateReservation = rDao.save(reservation);
+			
+			return updateReservation;
+			
+			
+		}
+		else {
+			
+			throw new ReservationException("Invalid Student Details....!");
+			
+		}
+		
 	}
 
 
