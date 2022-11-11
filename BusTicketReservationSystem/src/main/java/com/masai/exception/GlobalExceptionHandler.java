@@ -11,6 +11,21 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+	
+	
+	@ExceptionHandler(RouteException.class)
+	public ResponseEntity<MyErrorDetails> myRouteException(RouteException re, WebRequest webReq){
+		
+		MyErrorDetails red = new MyErrorDetails();
+		red.setTimestamp(LocalDateTime.now());
+		red.setMessage(re.getMessage());
+		red.setDetails(webReq.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetails>(red, HttpStatus.BAD_REQUEST);
+		
+	}
+
+
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<MyErrorDetails> otherExceptionHandler(Exception se, WebRequest req){
 	
