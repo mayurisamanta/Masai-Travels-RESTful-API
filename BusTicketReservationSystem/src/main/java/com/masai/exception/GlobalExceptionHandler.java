@@ -29,6 +29,7 @@ public class GlobalExceptionHandler {
 		
 	}
 
+
 	@ExceptionHandler(UserException.class)
 	public ResponseEntity<MyErrorDetails> userExceptionHandler(UserException ue,WebRequest req){
 		
