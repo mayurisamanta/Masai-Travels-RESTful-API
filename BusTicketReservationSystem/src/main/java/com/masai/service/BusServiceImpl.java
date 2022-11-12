@@ -72,8 +72,22 @@ public class BusServiceImpl implements BusService{
 		if(bList.size()==0) {
 			throw new BusException("bus list is empty");
 		}
+
         return bList;
+
+		return bList;
+
 	}
+
+//	public List<Bus> viewBusByType(String busType) throws BusException {
+//   List<Bus> bList = busdao.findByBusType(busType);
+//		
+//		if(bList.size()==0) {
+//			throw new BusException("bus list is empty");
+//		}
+//
+//		return bList;
+//	}
 
 	@Override
 
