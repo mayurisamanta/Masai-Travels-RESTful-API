@@ -33,7 +33,7 @@ public class ReservationController {
 	
 	
 	@PostMapping("/reservations")
-	public ResponseEntity<Reservation> addNewReservationHandler(@RequestBody Reservation reservation) throws ReservationException{
+	public ResponseEntity<Reservation> addNewReservationHandler(@Valid  @RequestBody Reservation reservation) throws ReservationException{
 		
 		Reservation saveReservation = rService.addNewReservation(reservation);
 		
@@ -42,7 +42,7 @@ public class ReservationController {
 	
 	
 	@PutMapping("/reservations")
-	public ResponseEntity<Reservation> updateReservationHandler(@RequestBody Reservation reservation) throws ReservationException{
+	public ResponseEntity<Reservation> updateReservationHandler(@Valid   @RequestBody Reservation reservation) throws ReservationException{
 		
 		Reservation updateReservation  = rService.updateReservation(reservation);
 		
@@ -52,7 +52,7 @@ public class ReservationController {
 	
 	
 	@DeleteMapping("/reservations/{id}")
-	public ResponseEntity<Reservation> deleteReservationHandler(@PathVariable("id") Integer reservationId) throws ReservationException{
+	public ResponseEntity<Reservation> deleteReservationHandler(@Valid   @PathVariable("id") Integer reservationId) throws ReservationException{
 		
 		Reservation deleteReservation = rService.deleteReservation(reservationId);
 		
@@ -65,7 +65,7 @@ public class ReservationController {
 	
 	
 	@GetMapping("/reservations/{rid}")
-	public ResponseEntity<Reservation> viewReservationByIdHandlerHandler(@PathVariable("rid") Integer reservationId) throws ReservationException{
+	public ResponseEntity<Reservation> viewReservationByIdHandler(@Valid  @PathVariable("rid") Integer reservationId) throws ReservationException{
 		
 		Reservation viewReservation = rService.viewReservationById(reservationId);
 		
@@ -87,7 +87,7 @@ public class ReservationController {
 	
 	
 	@PostMapping("/reservationsbydate")
-	public ResponseEntity<List<Reservation>> getAllReservationByDate(@RequestParam("localdate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws ReservationException{
+	public ResponseEntity<List<Reservation>> getAllReservationByDate(@Valid  @RequestParam("localdate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws ReservationException{
 		
 		
 		System.out.println(date);
