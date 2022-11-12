@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exception.BusException;
@@ -29,34 +30,34 @@ public class FeedbackController {
 	private IFeedbackServiceImpl fservice;
 	
 	@PostMapping("/add/{userLoginId}/{busId}")
-    public ResponseEntity<Feedback> addRouteHandler(@PathVariable("userLoginId") Integer userLoginId, @PathVariable("busId") Integer busId,@Valid @RequestBody Feedback feedback) throws FeedbackException, UserException, BusException {
+    public ResponseEntity<Feedback> addRouteHandler(@PathVariable("userLoginId") Integer userLoginId, @PathVariable("busId") Integer busId,@Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException, UserException, BusException {
 		
-		Feedback f = fservice.addFeedback(userLoginId, busId, feedback);
+		Feedback f = fservice.addFeedback(userLoginId, busId, feedback,key);
 		
 		return new ResponseEntity<Feedback>(f, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update/{feedbackId}")
-	public ResponseEntity<Feedback> updateRoute(@PathVariable("feedbackId") Integer feedbackId, @Valid @RequestBody Feedback feedback) throws FeedbackException{
+	public ResponseEntity<Feedback> updateRoute(@PathVariable("feedbackId") Integer feedbackId, @Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException,UserException{
 		
-		Feedback f = fservice.updateFeedback(feedbackId ,feedback);
+		Feedback f = fservice.updateFeedback(feedbackId ,feedback,key);
 		
 		return new ResponseEntity<Feedback>(f, HttpStatus.ACCEPTED);
 		
 	}
 	
 	@GetMapping("/view/{feedbackId}")
-	public ResponseEntity<Feedback> viewRoute(@PathVariable("feedbackId") Integer feedbackId) throws FeedbackException{
+	public ResponseEntity<Feedback> viewRoute(@PathVariable("feedbackId") Integer feedbackId,@RequestParam String key) throws FeedbackException,UserException{
 		
-		Feedback f = fservice.viewFeedback(feedbackId);
+		Feedback f = fservice.viewFeedback(feedbackId,key);
 		
 		return new ResponseEntity<Feedback>(f, HttpStatus.FOUND);
 	}
 	
 	@GetMapping("/viewAll")
-	public ResponseEntity<List<Feedback>> viewAllRoute() throws FeedbackException{
+	public ResponseEntity<List<Feedback>> viewAllRoute(@RequestParam String key) throws FeedbackException,UserException{
 		
-		List<Feedback> f = fservice.viewAllFeedback();
+		List<Feedback> f = fservice.viewAllFeedback(key);
 		
 		return new ResponseEntity<List<Feedback>>(f, HttpStatus.FOUND);
 	}
