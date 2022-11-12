@@ -61,6 +61,7 @@ public class GlobalExceptionHandler {
 		
 	}
 
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<MyErrorDetails> myMNVEHandler(MethodArgumentNotValidException me) {
 		
@@ -142,5 +143,6 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<MyErrorDetails>(err, HttpStatus.BAD_REQUEST);
 		
 	}
+
 
 }
