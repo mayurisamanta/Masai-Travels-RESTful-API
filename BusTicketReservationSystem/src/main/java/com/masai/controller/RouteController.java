@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exception.RouteException;
@@ -33,35 +34,35 @@ public class RouteController {
 	}
 	
 	@PutMapping("/updateRoute")
-	public ResponseEntity<Route> updateRouteHandler(@RequestBody Route route) throws RouteException{
+	public ResponseEntity<Route> updateRouteHandler(@RequestBody Route route,@RequestParam String key) throws RouteException{
 		
-	 Route rot = rService.updateRoute(route);
+	 Route rot = rService.updateRoute(route,key);
 	 
 	 return new ResponseEntity<Route>(rot, HttpStatus.OK);
 		
 	}
 	
 	@DeleteMapping("/deleteRoute/{routeId}")
-	public ResponseEntity<Route> deleteRouteHandler(@PathVariable("routeId") Integer routeId) throws RouteException{
+	public ResponseEntity<Route> deleteRouteHandler(@PathVariable("routeId") Integer routeId,@RequestParam String key) throws RouteException{
 		
-	Route rot =	rService.deleteRoute(routeId);
+	Route rot =	rService.deleteRoute(routeId,key);
 	
 	return new ResponseEntity<Route>(rot,HttpStatus.OK);
 		
 	}
 	
 	@GetMapping("/getRoute/{routeId}")
-	public ResponseEntity<Route> viewRouteHandler(@PathVariable("routeId") Integer routeId) throws RouteException{
+	public ResponseEntity<Route> viewRouteHandler(@PathVariable("routeId") Integer routeId,@RequestParam String key) throws RouteException{
 		
-		Route rot = rService.viewRoute(routeId);
+		Route rot = rService.viewRoute(routeId,key);
 		
 		return new ResponseEntity<Route>(rot,HttpStatus.OK);
 	}
 	
 	@GetMapping("/getAllRoute")
-	public ResponseEntity<List<Route>> viewAllRouteHandler() throws RouteException{
+	public ResponseEntity<List<Route>> viewAllRouteHandler(@RequestParam String key) throws RouteException{
 		
-     List<Route> rot = rService.viewAllRoute();
+     List<Route> rot = rService.viewAllRoute(key);
 		
 		return new ResponseEntity<List<Route>>(rot,HttpStatus.OK);
 		
