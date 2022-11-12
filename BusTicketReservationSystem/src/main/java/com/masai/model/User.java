@@ -6,116 +6,52 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userLoginId;
 	
+	@NotNull(message = "Username cannot be null.")
 	private String userName;
 	
+	@NotNull(message = "Password cannot be null.")
+	@NotBlank(message = "Password cannot be empty.")
 	private String password;
-	
+
+	@NotNull(message = "FirstName cannot be null.")
+	@NotBlank(message = "FirstName cannot be empty.")
 	private String firstName;
 	
+	@NotNull(message = "LastName cannot be null.")
+	@NotBlank(message = "LastName cannot be empty.")
 	private String lastName;
 	
+	@NotNull(message = "Contact cannot be null.")
+	@NotBlank(message = "Contact cannot be empty.")
 	private Long contact;
 	
+	@NotNull(message = "Email cannot be null.")
+	@Email
 	private String email;
 	
-	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	private Reservation reservation;
-
-	public User(Integer userLoginId, String userName, String password, String firstName, String lastName, Long contact,
-			String email, Reservation reservation) {
-		super();
-		this.userLoginId = userLoginId;
-		this.userName = userName;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.contact = contact;
-		this.email = email;
-		this.reservation = reservation;
-	}
-
-	public User() {
-		super();
-	}
-
-	public Integer getUserLoginId() {
-		return userLoginId;
-	}
-
-	public void setUserLoginId(Integer userLoginId) {
-		this.userLoginId = userLoginId;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Long getContact() {
-		return contact;
-	}
-
-	public void setContact(Long contact) {
-		this.contact = contact;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Reservation getReservation() {
-		return reservation;
-	}
-
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
-	}
-
-	@Override
-	public String toString() {
-		return "User [userLoginId=" + userLoginId + ", userName=" + userName + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", contact=" + contact + ", email=" + email + "]";
-	}
 }

@@ -2,6 +2,8 @@ package com.masai.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exception.UserException;
@@ -23,14 +26,14 @@ public class UserController {
 	private IUserService uService;
 
 	@PostMapping("/user")
-	public ResponseEntity<User> addUser(@RequestBody User user) throws UserException {
+	public ResponseEntity<User> addUser(@Valid @RequestBody User user) throws UserException {
 		User u=uService.addUser(user);
 		return new ResponseEntity<User>(u,HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/user/update")
-	public ResponseEntity<User> updateUser(@RequestBody User user) throws UserException {
-		User u=uService.updateUser(user);
+	public ResponseEntity<User> updateUser(@Valid @RequestBody User user,@RequestParam String key) throws UserException {
+		User u=uService.updateUser(user,key);
 		return new ResponseEntity<User>(u,HttpStatus.ACCEPTED);
 	}
 	
