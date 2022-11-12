@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.masai.exception.BusException;
 import com.masai.exception.FeedbackException;
 import com.masai.exception.UserException;
 import com.masai.model.Bus;
@@ -33,15 +34,24 @@ public class IFeedbackServiceImpl implements IFeedbackService{
 		
 		Bus b = bdao.findById(busId).orElseThrow(() -> new BusException("Bus with Id " + busId + " not found"));
 		
+		feedback.setBus(b);
+		feedback.setUser(u);
+		
 		Feedback f = fdao.save(feedback);
+		
 		return f;
 	}
 
 	@Override
-	public Feedback updateFeedback(Feedback feedback) throws FeedbackException {
-		Feedback f = fdao.findById(feedback.getFeedbackId()).orElseThrow(() -> new FeedbackException("Feedback with Id " + feedback.getFeedbackId() + " does not exist"));
+	public Feedback updateFeedback(Integer feedbackId, Feedback feedback) throws FeedbackException {
+		Feedback f = fdao.findById(feedbackId).orElseThrow(() -> new FeedbackException("Feedback with Id " + feedback.getFeedbackId() + " does not exist"));
 		
-		Feedback updated = fdao.save(feedback);
+		if (feedback.getComments() != null) f.setComments(feedback.getComments());
+		if (feedback.getDriverRating() != null) f.setDriverRating(feedback.getDriverRating());
+		if (feedback.getServiceRating() != null) f.setServiceRating(feedback.getServiceRating());
+		if (feedback.getOverallRating() != null) f.setOverallRating(feedback.getOverallRating());
+		
+		Feedback updated = fdao.save(f);
 		
 		return updated;
 	}
