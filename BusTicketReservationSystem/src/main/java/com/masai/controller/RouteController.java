@@ -33,7 +33,7 @@ public class RouteController {
 	}
 	
 	@PutMapping("/updateRoute")
-	public ResponseEntity<Route> updateRoute(@RequestBody Route route) throws RouteException{
+	public ResponseEntity<Route> updateRouteHandler(@RequestBody Route route) throws RouteException{
 		
 	 Route rot = rService.updateRoute(route);
 	 
@@ -42,7 +42,7 @@ public class RouteController {
 	}
 	
 	@DeleteMapping("/deleteRoute/{routeId}")
-	public ResponseEntity<Route> deleteRoute(@PathVariable("routeId") Integer routeId) throws RouteException{
+	public ResponseEntity<Route> deleteRouteHandler(@PathVariable("routeId") Integer routeId) throws RouteException{
 		
 	Route rot =	rService.deleteRoute(routeId);
 	
@@ -51,7 +51,7 @@ public class RouteController {
 	}
 	
 	@GetMapping("/getRoute/{routeId}")
-	public ResponseEntity<Route> viewRoute(@PathVariable("routeId") Integer routeId) throws RouteException{
+	public ResponseEntity<Route> viewRouteHandler(@PathVariable("routeId") Integer routeId) throws RouteException{
 		
 		Route rot = rService.viewRoute(routeId);
 		
@@ -59,7 +59,7 @@ public class RouteController {
 	}
 	
 	@GetMapping("/getAllRoute")
-	public ResponseEntity<List<Route>> viewAllRoute() throws RouteException{
+	public ResponseEntity<List<Route>> viewAllRouteHandler() throws RouteException{
 		
      List<Route> rot = rService.viewAllRoute();
 		
