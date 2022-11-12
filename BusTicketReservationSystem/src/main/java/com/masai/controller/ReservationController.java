@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.masai.exception.BusException;
 import com.masai.exception.ReservationException;
 import com.masai.model.Reservation;
 import com.masai.service.ReservationService;
@@ -25,6 +27,7 @@ import com.masai.service.ReservationService;
 //import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
+@RequestMapping("/reservation")
 public class ReservationController {
 
 	@Autowired
@@ -32,16 +35,16 @@ public class ReservationController {
 	
 	
 	
-	@PostMapping("/reservations")
-	public ResponseEntity<Reservation> addNewReservationHandler(@Valid  @RequestBody Reservation reservation) throws ReservationException{
+	@PostMapping("/add/{busId}")
+	public ResponseEntity<Reservation> addNewReservationHandler(@PathVariable Integer busId,@Valid  @RequestBody Reservation reservation) throws ReservationException, BusException{
 		
-		Reservation saveReservation = rService.addNewReservation(reservation);
+		Reservation saveReservation = rService.addNewReservation(busId ,reservation);
 		
 		return new ResponseEntity<Reservation>(saveReservation, HttpStatus.CREATED);
 	}
 	
 	
-	@PutMapping("/reservations")
+	@PutMapping("/update")
 	public ResponseEntity<Reservation> updateReservationHandler(@Valid   @RequestBody Reservation reservation) throws ReservationException{
 		
 		Reservation updateReservation  = rService.updateReservation(reservation);
@@ -51,7 +54,7 @@ public class ReservationController {
 	}
 	
 	
-	@DeleteMapping("/reservations/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Reservation> deleteReservationHandler(@Valid   @PathVariable("id") Integer reservationId) throws ReservationException{
 		
 		Reservation deleteReservation = rService.deleteReservation(reservationId);
@@ -64,7 +67,7 @@ public class ReservationController {
 	
 	
 	
-	@GetMapping("/reservations/{rid}")
+	@GetMapping("/view/{rid}")
 	public ResponseEntity<Reservation> viewReservationByIdHandler(@Valid  @PathVariable("rid") Integer reservationId) throws ReservationException{
 		
 		Reservation viewReservation = rService.viewReservationById(reservationId);
@@ -75,7 +78,7 @@ public class ReservationController {
 	}
 	
 	
-	@GetMapping("/reservations")
+	@GetMapping("/viewall")
 	public ResponseEntity<List<Reservation>> viewAllReservationHandler() throws ReservationException{
 		
 		List<Reservation> reservations = rService.viewAllReservation();
@@ -86,7 +89,7 @@ public class ReservationController {
 	}
 	
 	
-	@PostMapping("/reservationsbydate")
+	@PostMapping("/viewbydate")
 	public ResponseEntity<List<Reservation>> getAllReservationByDate(@Valid  @RequestParam("localdate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws ReservationException{
 		
 		

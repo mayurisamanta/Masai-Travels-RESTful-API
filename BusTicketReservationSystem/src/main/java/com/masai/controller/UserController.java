@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,27 +34,27 @@ public class UserController {
 		return new ResponseEntity<User>(u,HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/update")
+	@PutMapping("/update")
 	public ResponseEntity<User> updateUser(@Valid @RequestBody User user,@RequestParam String key) throws UserException {
 		User u=uService.updateUser(user,key);
 		return new ResponseEntity<User>(u,HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("delete/{userId}")
-	public ResponseEntity<User> deleteUser(@PathVariable("userId") Integer userId) throws UserException {
-		User u=uService.deleteUser(userId);
+	public ResponseEntity<User> deleteUser(@PathVariable("userId") Integer userId,@RequestParam String key) throws UserException {
+		User u=uService.deleteUser(userId, key);
 		return new ResponseEntity<User>(u,HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/view/{userId}")
-	public ResponseEntity<User> viewUser(@PathVariable("userId") Integer userId) throws UserException {
-		User u=uService.viewUser(userId);
+	public ResponseEntity<User> viewUser(@PathVariable("userId") Integer userId,@RequestParam String key) throws UserException {
+		User u=uService.viewUser(userId,key);
 		return new ResponseEntity<User>(u,HttpStatus.FOUND);
 	}
 	
 	@GetMapping("/viewall")
-	public ResponseEntity<List<User>> viewAllUsers() throws UserException {
-		List<User> users=uService.viewAllUsers();
+	public ResponseEntity<List<User>> viewAllUsers(@RequestParam String key) throws UserException {
+		List<User> users=uService.viewAllUsers(key);
 		return new ResponseEntity<List<User>>(users,HttpStatus.FOUND);
 	}
 }

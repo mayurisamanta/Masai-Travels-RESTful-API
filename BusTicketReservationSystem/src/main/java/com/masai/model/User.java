@@ -1,5 +1,7 @@
 package com.masai.model;
 
+import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,29 +37,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userLoginId;
 	
-//	@NotNull(message = "Username cannot be null.")
 	private String userName;
 	
-//	@NotNull(message = "Password cannot be null.")
-//	@NotBlank(message = "Password cannot be empty.")
-	@Size(min=6,message="Password must be greater than 6 character.")
+	@Size(min = 6, message="Password length must be between 6 to 10 character")
+	@Size(max = 10, message = "Password length must be between 6 to 10 character")
 	private String password;
 
-//	@NotNull(message = "FirstName cannot be null.")
-//	@NotBlank(message = "FirstName cannot be empty.")
 	private String firstName;
 	
-//	@NotNull(message = "LastName cannot be null.")
-//	@NotBlank(message = "LastName cannot be empty.")
 	private String lastName;
 	
-//	@NotNull(message = "Contact cannot be null.")
 	private Long contact;
 	
-//	@NotNull(message = "Email cannot be null.")
-	@Email
+	@Email(message = "Please enter valid email Id")
 	private String email;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	private Reservation reservation;
+
 }

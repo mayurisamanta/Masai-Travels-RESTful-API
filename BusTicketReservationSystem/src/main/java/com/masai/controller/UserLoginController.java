@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,8 @@ import com.masai.service.LoginService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
-public class LoginController {
+@RequestMapping("/user")
+public class UserLoginController {
 	@Autowired
 	private LoginService lService;
 	
@@ -27,7 +29,7 @@ public class LoginController {
 	}
 	
 	@PostMapping("/logout")
-	public ResponseEntity<String> logout(@RequestParam(required = false) String key) throws LoginException{
+	public ResponseEntity<String> logout(@RequestParam String key) throws LoginException{
 		String msg=lService.logOutFromAccount(key);
 		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}
