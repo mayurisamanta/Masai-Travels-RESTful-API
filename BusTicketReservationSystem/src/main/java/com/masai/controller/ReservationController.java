@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exception.BusException;
 import com.masai.exception.ReservationException;
+import com.masai.exception.UserException;
 import com.masai.model.Reservation;
 import com.masai.service.ReservationService;
 
@@ -36,18 +37,18 @@ public class ReservationController {
 	
 	
 	@PostMapping("/add/{busId}")
-	public ResponseEntity<Reservation> addNewReservationHandler(@PathVariable Integer busId,@Valid  @RequestBody Reservation reservation) throws ReservationException, BusException{
+	public ResponseEntity<Reservation> addNewReservationHandler(@PathVariable Integer busId,@Valid  @RequestBody Reservation reservation,@RequestParam String key) throws ReservationException, BusException, UserException{
 		
-		Reservation saveReservation = rService.addNewReservation(busId ,reservation);
+		Reservation saveReservation = rService.addNewReservation(busId ,reservation,key);
 		
 		return new ResponseEntity<Reservation>(saveReservation, HttpStatus.CREATED);
 	}
 	
 	
 	@PutMapping("/update")
-	public ResponseEntity<Reservation> updateReservationHandler(@Valid   @RequestBody Reservation reservation) throws ReservationException{
+	public ResponseEntity<Reservation> updateReservationHandler(@Valid   @RequestBody Reservation reservation,@RequestParam String key) throws ReservationException, UserException{
 		
-		Reservation updateReservation  = rService.updateReservation(reservation);
+		Reservation updateReservation  = rService.updateReservation(reservation,key);
 		
 		return new ResponseEntity<Reservation>(updateReservation, HttpStatus.ACCEPTED);
 		
@@ -55,9 +56,9 @@ public class ReservationController {
 	
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Reservation> deleteReservationHandler(@Valid   @PathVariable("id") Integer reservationId) throws ReservationException{
+	public ResponseEntity<Reservation> deleteReservationHandler(@Valid   @PathVariable("id") Integer reservationId,@RequestParam String key) throws ReservationException, UserException{
 		
-		Reservation deleteReservation = rService.deleteReservation(reservationId);
+		Reservation deleteReservation = rService.deleteReservation(reservationId,key);
 		
 		return new ResponseEntity<Reservation>(deleteReservation, HttpStatus.OK);
 		
@@ -68,9 +69,9 @@ public class ReservationController {
 	
 	
 	@GetMapping("/view/{rid}")
-	public ResponseEntity<Reservation> viewReservationByIdHandler(@Valid  @PathVariable("rid") Integer reservationId) throws ReservationException{
+	public ResponseEntity<Reservation> viewReservationByIdHandler(@Valid  @PathVariable("rid") Integer reservationId,@RequestParam String key) throws ReservationException, UserException{
 		
-		Reservation viewReservation = rService.viewReservationById(reservationId);
+		Reservation viewReservation = rService.viewReservationById(reservationId,key);
 		
 		return new ResponseEntity<Reservation>(viewReservation, HttpStatus.OK);
 		
@@ -79,9 +80,9 @@ public class ReservationController {
 	
 	
 	@GetMapping("/viewall")
-	public ResponseEntity<List<Reservation>> viewAllReservationHandler() throws ReservationException{
+	public ResponseEntity<List<Reservation>> viewAllReservationHandler(@RequestParam String key) throws ReservationException, UserException{
 		
-		List<Reservation> reservations = rService.viewAllReservation();
+		List<Reservation> reservations = rService.viewAllReservation(key);
 		
 		
 		return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);	
@@ -90,12 +91,12 @@ public class ReservationController {
 	
 	
 	@PostMapping("/viewbydate")
-	public ResponseEntity<List<Reservation>> getAllReservationByDate(@Valid  @RequestParam("localdate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws ReservationException{
+	public ResponseEntity<List<Reservation>> getAllReservationByDate(@Valid  @RequestParam("localdate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestParam String key) throws ReservationException, UserException{
 		
 		
 		System.out.println(date);
 		
-		List<Reservation> reservation = rService.getAllReservationByDate(date);
+		List<Reservation> reservation = rService.getAllReservationByDate(date,key);
 		
 		return new ResponseEntity<List<Reservation>>(reservation, HttpStatus.OK);
 		

@@ -1,80 +1,84 @@
-//package com.masai.controller;
-//
-//import java.util.List;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.masai.exception.BusException;
-//import com.masai.model.Bus;
-//import com.masai.service.BusServiceImpl;
-//
-//
-//
-//@RestController
-//public class BusController {
-//
-//	@Autowired
-//	private BusServiceImpl busService;
-//	
-//	@PostMapping("/addBus")
-//	public ResponseEntity<Bus> addBusHandler(@RequestBody Bus bus)throws BusException{
-//		
-//		Bus savedBus = busService.addBus(bus);
-//		
-//		return new ResponseEntity<Bus>(savedBus,HttpStatus.OK);
-//		
-//	}
-//	
-//	@PutMapping("/updateBus")
-//	public ResponseEntity<Bus> updateBusHandler(@RequestBody Bus bus)throws BusException{
-//		
-//		Bus updatedBus = busService.updateBus(bus);
-//		
-//		return new ResponseEntity<Bus>(updatedBus,HttpStatus.OK);
-//		
-//	}
-//	
-//	@DeleteMapping("/deleteBus/{busId}/{routeId}")
-//	public ResponseEntity<Bus> deleteBusHandler(@PathVariable("busId") Integer busId)throws BusException{
-//		
-//		Bus deletedBus = busService.deleteBus(busId);
-//		
-//		return new ResponseEntity<Bus>(deletedBus,HttpStatus.OK);
-//	}
-//	
-//	@GetMapping("/viewBus/{busId}")
-//	public ResponseEntity<Bus> viewBusHandler(@PathVariable("busId") Integer busId) throws BusException{
-//		
-//		Bus busById = busService.viewBus(busId);
-//		
-//		return new ResponseEntity<Bus>(busById,HttpStatus.OK);
-//		
-//	}
-//	
-//	@GetMapping("/viewBusByType/{busType}")
-//	public ResponseEntity<List<Bus>> viewBusByTypeHandler(@PathVariable("busType") String busType) throws BusException{
-//		
-//		List<Bus> busByType = busService.viewBusByType(busType);
-//		
-//		return new ResponseEntity<List<Bus>>(busByType,HttpStatus.OK);
-//		
-//	}
-//	
-//	@GetMapping("/viewAllBus")
-//	public ResponseEntity<List<Bus>> viewAllBus() throws BusException{
-//		
-//		List<Bus> viewAllBus = busService.viewAllBus();
-//		
-//		return new ResponseEntity<List<Bus>>(viewAllBus,HttpStatus.OK);
-//		
-//	}
-//}
+package com.masai.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.masai.exception.BusException;
+import com.masai.exception.UserException;
+import com.masai.model.Bus;
+import com.masai.service.BusServiceImpl;
+
+
+
+@RestController
+@RequestMapping("Bus")
+public class BusController {
+
+	@Autowired
+	private BusServiceImpl busService;
+	
+	@PostMapping("/add")
+	public ResponseEntity<Bus> addBusHandler(@RequestBody Bus bus,@RequestParam String key)throws BusException, UserException{
+		
+		Bus savedBus = busService.addBus(bus,key);
+		
+		return new ResponseEntity<Bus>(savedBus,HttpStatus.CREATED);
+		
+	}
+	
+	@PutMapping("/update")
+	public ResponseEntity<Bus> updateBusHandler(@RequestBody Bus bus,@RequestParam String key)throws BusException, UserException{
+		
+		Bus updatedBus = busService.updateBus(bus,key);
+		
+		return new ResponseEntity<Bus>(updatedBus,HttpStatus.ACCEPTED);
+		
+	}
+	
+	@DeleteMapping("/delete/{busId}")
+	public ResponseEntity<Bus> deleteBusHandler(@PathVariable("busId") Integer busId,@RequestParam String key)throws BusException, UserException{
+		
+		Bus deletedBus = busService.deleteBus(busId,key);
+		
+		return new ResponseEntity<Bus>(deletedBus,HttpStatus.OK);
+	}
+	
+	@GetMapping("/view/{busId}")
+	public ResponseEntity<Bus> viewBusHandler(@PathVariable("busId") Integer busId,@RequestParam String key) throws BusException, UserException{
+		
+		Bus busById = busService.viewBus(busId,key);
+		
+		return new ResponseEntity<Bus>(busById,HttpStatus.FOUND);
+		
+	}
+	
+	@GetMapping("/viewBusByType/{busType}")
+	public ResponseEntity<List<Bus>> viewBusByTypeHandler(@PathVariable("busType") String busType,@RequestParam String key) throws BusException, UserException{
+		
+		List<Bus> busByType = busService.viewBusByType(busType,key);
+		
+		return new ResponseEntity<List<Bus>>(busByType,HttpStatus.FOUND);
+		
+	}
+	
+	@GetMapping("/viewAllBus")
+	public ResponseEntity<List<Bus>> viewAllBus(@RequestParam String key) throws BusException, UserException{
+		
+		List<Bus> viewAllBus = busService.viewAllBus(key);
+		
+		return new ResponseEntity<List<Bus>>(viewAllBus,HttpStatus.OK);
+		
+	}
+}

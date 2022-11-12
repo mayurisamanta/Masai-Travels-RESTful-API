@@ -86,10 +86,16 @@ public class IUserServiceImpl implements IUserService{
 	public User viewUser(Integer userId,String key) throws UserException {
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to delete user.");
+			throw new UserException("Please provide a valid key to view user.");
 		}
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
+			User u=uRepo.findById(userId)
+					.orElseThrow(()-> new UserException("User with User Id "+userId+" does not exist"));
+			
+			return u;
+		}
+		else if (loggedInUser.getType().equalsIgnoreCase("user")){
 			User u=uRepo.findById(userId)
 					.orElseThrow(()-> new UserException("User with User Id "+userId+" does not exist"));
 			if(u.getUserLoginId()==loggedInUser.getUserId()) {
