@@ -14,9 +14,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.masai.exception.BusException;
 import com.masai.exception.ReservationException;
 import com.masai.model.Bus;
 import com.masai.model.Reservation;
+import com.masai.repository.BusDao;
 import com.masai.repository.ReservationDao;
 
 @Service
@@ -25,11 +27,16 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationDao rDao;
 
+	@Autowired
+	private BusDao bdao;
 	
 	
 	@Override
-	public Reservation addNewReservation(Reservation reservation) throws ReservationException {
+	public Reservation addNewReservation(Integer busId, Reservation reservation) throws ReservationException, BusException {
 		
+		Bus b = bdao.findById(busId).orElseThrow(() -> new BusException("Bus with Id " + busId + " not found"));
+		
+		reservation.setBus(b);
 		
 		return rDao.save(reservation);
 		

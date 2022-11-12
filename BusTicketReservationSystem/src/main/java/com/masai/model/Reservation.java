@@ -29,12 +29,8 @@ public class Reservation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer reservationId;
 	
-//	@NotBlank(message = "Reservation status not be ramain empty *")
-//	@NotNull(message = "Reservation Status is mandatory *")
 	private String reservationStatus;
 	
-//	@NotBlank(message = "Reservation type not be ramain empty *")
-//	@NotNull(message = "Reservation type is mandatory *")
 	private String reservationType;
 	
 	@Future(message = "Date should not be in past *")

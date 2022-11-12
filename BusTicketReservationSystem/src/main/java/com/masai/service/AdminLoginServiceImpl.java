@@ -24,7 +24,7 @@ public class AdminLoginServiceImpl implements AdminLoginService{
 	public String logIntoAccount(AdminDto dto) throws LoginException {
 		// TODO Auto-generated method stub
 		Admin adm=new Admin();
-		if(adm.username!=dto.getUserName()) {
+		if(!adm.username.equalsIgnoreCase(dto.getUserName())) {
 			throw new LoginException("Please Enter a valid username.");
 		}
 		Optional<CurrentUserSession> validUserSessionOpt =sRepo.findById(adm.id);

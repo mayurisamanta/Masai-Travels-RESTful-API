@@ -1,11 +1,16 @@
 package com.masai.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.Data;
+
+import com.masai.exception.ReservationException;
 import com.masai.exception.UserException;
 import com.masai.model.CurrentUserSession;
+import com.masai.model.Reservation;
 import com.masai.model.User;
 import com.masai.repository.SessionRepo;
 import com.masai.repository.UserRepo;
@@ -27,19 +32,34 @@ public class IUserServiceImpl implements IUserService{
 		}
 		return uRepo.save(user);
 	}
+	
 
 	@Override
 	public User updateUser(User user,String key) throws UserException {
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to update user.");
+			throw new UserException("Please provide a valid key to update user");
 		}
 		if(user.getUserLoginId()==loggedInUser.getUserId()) {
-			return uRepo.save(user);
+			
+			Optional<User> opt = uRepo.findById(user.getUserLoginId());
+
+			User curr = opt.get();
+			
+			if (user.getContact() != null) curr.setContact(user.getContact());
+			if (user.getEmail() != null) curr.setEmail(user.getEmail());
+			if (user.getFirstName() != null) curr.setFirstName(user.getFirstName());
+			if (user.getLastName() != null) curr.setLastName(user.getLastName());
+			if (user.getPassword() != null) curr.setPassword(user.getPassword());
+			if (user.getUserName() != null) curr.setUserName(user.getUserName());
+			
+			User saved = uRepo.save(curr);
+			
+			return saved;
+			
 		}
-		else {
-			throw new UserException("Invalid User details, please login first");
-		}
+		else throw new UserException("Invalid User Id");
+				
 	}
 
 	@Override
@@ -52,6 +72,7 @@ public class IUserServiceImpl implements IUserService{
 				.orElseThrow(()-> new UserException("User with User Id "+userId+" does not exist"));
 		if(u.getUserLoginId()==loggedInUser.getUserId()) {
 			uRepo.delete(u);
+			srepo.delete(loggedInUser);
 			return u;
 		}
 		else {
@@ -67,14 +88,18 @@ public class IUserServiceImpl implements IUserService{
 		if(loggedInUser==null) {
 			throw new UserException("Please provide a valid key to delete user.");
 		}
-		User u=uRepo.findById(userId)
-				.orElseThrow(()-> new UserException("User with User Id "+userId+" does not exist"));
-		if(u.getUserLoginId()==loggedInUser.getUserId()) {
-			return u;
+		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
+			
+			User u=uRepo.findById(userId)
+					.orElseThrow(()-> new UserException("User with User Id "+userId+" does not exist"));
+			if(u.getUserLoginId()==loggedInUser.getUserId()) {
+				return u;
+			}
+			else {
+				throw new UserException("Invalid User details, please login first");
+			}
 		}
-		else {
-			throw new UserException("Invalid User details, please login first");
-		}
+		else throw new UserException("Access denied");
 		
 	}
 
@@ -84,12 +109,16 @@ public class IUserServiceImpl implements IUserService{
 		if(loggedInUser==null) {
 			throw new UserException("Please provide a valid key to delete user.");
 		}
-		List<User> users=uRepo.findAll();
-		if(users.size()!=0) {
-			return users;
-		}else {
-			throw new UserException("No User Found.");
+		if (loggedInUser.getType().equalsIgnoreCase("admin")) {
+			
+			List<User> users=uRepo.findAll();
+			if(users.size()!=0) {
+				return users;
+			}else {
+				throw new UserException("No User Found.");
+			}
 		}
+		else throw new UserException("Access denied");
 	}
 
 }

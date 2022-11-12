@@ -1,12 +1,14 @@
 package com.masai.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exception.LoginException;
+import com.masai.exception.UserException;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.LoginDTO;
 import com.masai.model.User;
@@ -46,6 +48,7 @@ public class LoginServiceImpl implements LoginService{
 
 	@Override
 	public String logOutFromAccount(String key) throws LoginException {
+		
 		CurrentUserSession validUserSession=sRepo.findByUuid(key);
 		
 		if(validUserSession==null) {

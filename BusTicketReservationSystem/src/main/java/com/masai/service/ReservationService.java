@@ -3,12 +3,13 @@ package com.masai.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.masai.exception.BusException;
 import com.masai.exception.ReservationException;
 import com.masai.model.Reservation;
 
 public interface ReservationService {
 
-	public Reservation addNewReservation(Reservation reservation)throws ReservationException;
+	public Reservation addNewReservation(Integer busId,Reservation reservation)throws ReservationException, BusException;
 	
 	public Reservation updateReservation(Reservation reservation)throws ReservationException;
 	
