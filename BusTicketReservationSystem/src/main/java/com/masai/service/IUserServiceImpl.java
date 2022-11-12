@@ -43,22 +43,47 @@ public class IUserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public User deleteUser(Integer userId) throws UserException {
+	public User deleteUser(Integer userId,String key) throws UserException {
+		CurrentUserSession loggedInUser=srepo.findByUuid(key);
+		if(loggedInUser==null) {
+			throw new UserException("Please provide a valid key to delete user.");
+		}
 		User u=uRepo.findById(userId)
 				.orElseThrow(()-> new UserException("User with User Id "+userId+" does not exist"));
-		uRepo.delete(u);
-		return u;
+		if(u.getUserLoginId()==loggedInUser.getUserId()) {
+			uRepo.delete(u);
+			return u;
+		}
+		else {
+			throw new UserException("Invalid User details, please login first");
+		}
+		
+
 	}
 
 	@Override
-	public User viewUser(Integer userId) throws UserException {
+	public User viewUser(Integer userId,String key) throws UserException {
+		CurrentUserSession loggedInUser=srepo.findByUuid(key);
+		if(loggedInUser==null) {
+			throw new UserException("Please provide a valid key to delete user.");
+		}
 		User u=uRepo.findById(userId)
 				.orElseThrow(()-> new UserException("User with User Id "+userId+" does not exist"));
-		return u;
+		if(u.getUserLoginId()==loggedInUser.getUserId()) {
+			return u;
+		}
+		else {
+			throw new UserException("Invalid User details, please login first");
+		}
+		
 	}
 
 	@Override
-	public List<User> viewAllUsers() throws UserException {
+	public List<User> viewAllUsers(String key) throws UserException {
+		CurrentUserSession loggedInUser=srepo.findByUuid(key);
+		if(loggedInUser==null) {
+			throw new UserException("Please provide a valid key to delete user.");
+		}
 		List<User> users=uRepo.findAll();
 		if(users.size()!=0) {
 			return users;

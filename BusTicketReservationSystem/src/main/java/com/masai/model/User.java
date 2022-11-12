@@ -32,26 +32,26 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userLoginId;
 	
-	@NotNull(message = "Username cannot be null.")
+//	@NotNull(message = "Username cannot be null.")
 	private String userName;
 	
-	@NotNull(message = "Password cannot be null.")
-	@NotBlank(message = "Password cannot be empty.")
+//	@NotNull(message = "Password cannot be null.")
+//	@NotBlank(message = "Password cannot be empty.")
 	@Size(min=6,message="Password must be greater than 6 character.")
 	private String password;
 
-	@NotNull(message = "FirstName cannot be null.")
-	@NotBlank(message = "FirstName cannot be empty.")
+//	@NotNull(message = "FirstName cannot be null.")
+//	@NotBlank(message = "FirstName cannot be empty.")
 	private String firstName;
 	
-	@NotNull(message = "LastName cannot be null.")
-	@NotBlank(message = "LastName cannot be empty.")
+//	@NotNull(message = "LastName cannot be null.")
+//	@NotBlank(message = "LastName cannot be empty.")
 	private String lastName;
 	
-	@NotNull(message = "Contact cannot be null.")
+//	@NotNull(message = "Contact cannot be null.")
 	private Long contact;
 	
-	@NotNull(message = "Email cannot be null.")
+//	@NotNull(message = "Email cannot be null.")
 	@Email
 	private String email;
 	

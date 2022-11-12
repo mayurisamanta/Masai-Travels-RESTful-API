@@ -39,21 +39,21 @@ public class UserController {
 		return new ResponseEntity<User>(u,HttpStatus.ACCEPTED);
 	}
 	
-//	@DeleteMapping("delete/{userId}")
-//	public ResponseEntity<User> deleteUser(@PathVariable("userId") Integer userId) throws UserException {
-//		User u=uService.deleteUser(userId);
-//		return new ResponseEntity<User>(u,HttpStatus.ACCEPTED);
-//	}
-//	
-//	@GetMapping("/view/{userId}")
-//	public ResponseEntity<User> viewUser(@PathVariable("userId") Integer userId) throws UserException {
-//		User u=uService.viewUser(userId);
-//		return new ResponseEntity<User>(u,HttpStatus.FOUND);
-//	}
-//	
-//	@GetMapping("/viewall")
-//	public ResponseEntity<List<User>> viewAllUsers() throws UserException {
-//		List<User> users=uService.viewAllUsers();
-//		return new ResponseEntity<List<User>>(users,HttpStatus.FOUND);
-//	}
+	@DeleteMapping("delete/{userId}")
+	public ResponseEntity<User> deleteUser(@PathVariable("userId") Integer userId) throws UserException {
+		User u=uService.deleteUser(userId);
+		return new ResponseEntity<User>(u,HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("/view/{userId}")
+	public ResponseEntity<User> viewUser(@PathVariable("userId") Integer userId) throws UserException {
+		User u=uService.viewUser(userId);
+		return new ResponseEntity<User>(u,HttpStatus.FOUND);
+	}
+	
+	@GetMapping("/viewall")
+	public ResponseEntity<List<User>> viewAllUsers() throws UserException {
+		List<User> users=uService.viewAllUsers();
+		return new ResponseEntity<List<User>>(users,HttpStatus.FOUND);
+	}
 }

@@ -7,36 +7,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exception.LoginException;
+import com.masai.model.Admin;
+import com.masai.model.AdminDto;
 import com.masai.model.CurrentUserSession;
-import com.masai.model.LoginDTO;
-import com.masai.model.User;
 import com.masai.repository.SessionRepo;
-import com.masai.repository.UserRepo;
 
 import net.bytebuddy.utility.RandomString;
 
 @Service
-public class LoginServiceImpl implements LoginService{
-	
-	@Autowired
-	private UserRepo uRepo;
-	
+public class AdminLoginServiceImpl implements AdminLoginService{
+
 	@Autowired
 	private SessionRepo sRepo;
-
+	
 	@Override
-	public String logIntoAccount(LoginDTO dto) throws LoginException {
-		User user=uRepo.findByUserName(dto.getUserName());
-		if(user==null) {
+	public String logIntoAccount(AdminDto dto) throws LoginException {
+		// TODO Auto-generated method stub
+		Admin adm=new Admin();
+		if(adm.username!=dto.getUserName()) {
 			throw new LoginException("Please Enter a valid username.");
 		}
-		Optional<CurrentUserSession> validUserSessionOpt =sRepo.findById(user.getUserLoginId());
+		Optional<CurrentUserSession> validUserSessionOpt =sRepo.findById(adm.id);
 		if(validUserSessionOpt.isPresent()) {
 			throw new LoginException("User already Logged in with this username.");
 		}
-		if(user.getPassword().equals(dto.getPassword())) {
+		if(adm.password.equals(dto.getPassword())) {
 			String key=RandomString.make(6);
-			CurrentUserSession currentUserSession=new CurrentUserSession(user.getUserLoginId(),"user",key,LocalDateTime.now());
+			CurrentUserSession currentUserSession=new CurrentUserSession(adm.id,"admin",key,LocalDateTime.now());
 			sRepo.save(currentUserSession);
 			return currentUserSession.toString();
 		}else {
@@ -46,7 +43,7 @@ public class LoginServiceImpl implements LoginService{
 
 	@Override
 	public String logOutFromAccount(String key) throws LoginException {
-		CurrentUserSession validUserSession=sRepo.findByUuid(key);
+CurrentUserSession validUserSession=sRepo.findByUuid(key);
 		
 		if(validUserSession==null) {
 			throw new LoginException("User not logged in with this username.");

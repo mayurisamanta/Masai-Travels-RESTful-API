@@ -29,28 +29,28 @@ public class Reservation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer reservationId;
 	
-	@NotBlank(message = "Reservation status not be ramain empty *")
-	@NotNull(message = "Reservation Status is mandatory *")
+//	@NotBlank(message = "Reservation status not be ramain empty *")
+//	@NotNull(message = "Reservation Status is mandatory *")
 	private String reservationStatus;
 	
-	@NotBlank(message = "Reservation type not be ramain empty *")
-	@NotNull(message = "Reservation type is mandatory *")
+//	@NotBlank(message = "Reservation type not be ramain empty *")
+//	@NotNull(message = "Reservation type is mandatory *")
 	private String reservationType;
 	
 	@Future(message = "Date should not be in past *")
-	@NotNull(message = "Reservation Date is mandatory *")
+//	@NotNull(message = "Reservation Date is mandatory *")
 	@JsonFormat(pattern = "yyyy-MM-dd", shape = Shape.STRING)
 	private LocalDate reservationDate;
 	
 	
-	@NotNull(message = "Reservation Time is mandatory *")
+//	@NotNull(message = "Reservation Time is mandatory *")
 	private LocalTime reservationTime;
 	
-	@NotNull(message = "Reservation source is mandatory *")
+//	@NotNull(message = "Reservation source is mandatory *")
 	private String source;
 	
-	@NotBlank(message = "Reservation destination not be ramain empty *")
-	@NotNull(message = "Reservation destination is mandatory *")
+//	@NotBlank(message = "Reservation destination not be ramain empty *")
+//	@NotNull(message = "Reservation destination is mandatory *")
 	private String destination;
 	
 	
