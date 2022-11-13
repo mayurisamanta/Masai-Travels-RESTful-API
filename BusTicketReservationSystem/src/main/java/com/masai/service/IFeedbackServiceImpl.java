@@ -33,12 +33,12 @@ public class IFeedbackServiceImpl implements IFeedbackService{
 	private SessionRepo srepo;
 	
 	@Override
-	public Feedback addFeedback(Integer userLoginId, Integer busId, Feedback feedback,String key) throws FeedbackException, UserException, BusException {
+	public Feedback addFeedback( Integer busId, Feedback feedback,String key) throws FeedbackException, UserException, BusException {
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		if(loggedInUser==null) {
 			throw new UserException("Please provide a valid key to update user");
 		}
-		User user = udao.findById(userLoginId).orElseThrow(() -> new UserException("User with Id " + userLoginId + " not found"));
+		User user = udao.findById(loggedInUser.getUserId()).orElseThrow(() -> new UserException("User with Id " + loggedInUser.getUserId() + " not found"));
 		if(user.getUserLoginId()==loggedInUser.getUserId()) {
 			Bus b = bdao.findById(busId).orElseThrow(() -> new BusException("Bus with Id " + busId + " not found"));
 			
@@ -55,7 +55,7 @@ public class IFeedbackServiceImpl implements IFeedbackService{
 	}
 
 	@Override
-	public Feedback updateFeedback(Integer feedbackId, Feedback feedback,String key) throws FeedbackException, UserException {
+	public Feedback updateFeedback( Feedback feedback,String key) throws FeedbackException, UserException {
 		
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		if(loggedInUser==null) {
@@ -63,7 +63,7 @@ public class IFeedbackServiceImpl implements IFeedbackService{
 		}
 		User user = udao.findById(loggedInUser.getUserId()).orElseThrow(() -> new UserException("User with Id " + loggedInUser.getUserId() + " not found"));
 		if(user.getUserLoginId()==loggedInUser.getUserId()) {
-			Feedback f = fdao.findById(feedbackId).orElseThrow(() -> new FeedbackException("Feedback with Id " + feedback.getFeedbackId() + " does not exist"));
+			Feedback f = fdao.findById(feedback.getFeedbackId()).orElseThrow(() -> new FeedbackException("Feedback with Id " + feedback.getFeedbackId() + " does not exist"));
 			
 			if (feedback.getComments() != null) f.setComments(feedback.getComments());
 			if (feedback.getDriverRating() != null) f.setDriverRating(feedback.getDriverRating());
