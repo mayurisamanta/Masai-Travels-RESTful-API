@@ -29,18 +29,18 @@ public class FeedbackController {
 	@Autowired
 	private IFeedbackServiceImpl fservice;
 	
-	@PostMapping("/add/{userLoginId}/{busId}")
-    public ResponseEntity<Feedback> addRouteHandler(@PathVariable("userLoginId") Integer userLoginId, @PathVariable("busId") Integer busId,@Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException, UserException, BusException {
+	@PostMapping("/add/{busId}")
+    public ResponseEntity<Feedback> addRouteHandler( @PathVariable("busId") Integer busId,@Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException, UserException, BusException {
 		
-		Feedback f = fservice.addFeedback(userLoginId, busId, feedback,key);
+		Feedback f = fservice.addFeedback( busId, feedback,key);
 		
 		return new ResponseEntity<Feedback>(f, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/update/{feedbackId}")
-	public ResponseEntity<Feedback> updateRoute(@PathVariable("feedbackId") Integer feedbackId, @Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException,UserException{
+	@PutMapping("/update")
+	public ResponseEntity<Feedback> updateRoute( @Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException,UserException{
 		
-		Feedback f = fservice.updateFeedback(feedbackId ,feedback,key);
+		Feedback f = fservice.updateFeedback(feedback,key);
 		
 		return new ResponseEntity<Feedback>(f, HttpStatus.ACCEPTED);
 		

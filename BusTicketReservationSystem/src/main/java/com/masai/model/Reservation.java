@@ -40,6 +40,7 @@ public class Reservation {
 	
 	
 //	@NotNull(message = "Reservation Time is mandatory *")
+//	@JsonFormat(pattern = "hh-mm-ss", shape = Shape.STRING)
 	private LocalTime reservationTime;
 	
 //	@NotNull(message = "Reservation source is mandatory *")
@@ -51,21 +52,22 @@ public class Reservation {
 	
 	
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	private Bus bus;
 
 
-//	public Reservation(Integer reservationId, String reservationStatus, String reservationType,
-//			LocalDate reservationDate, LocalTime reservationTime, String source, String destination) {
-//		super();
-//		this.reservationId = reservationId;
-//		this.reservationStatus = reservationStatus;
-//		this.reservationType = reservationType;
-//		this.reservationDate = reservationDate;
-//		this.reservationTime = reservationTime;
-//		this.source = source;
-//		this.destination = destination;
-//	}
+	public Reservation(Integer reservationId, String reservationStatus, String reservationType,
+			LocalDate reservationDate, LocalTime reservationTime, String source, String destination) {
+		super();
+		this.reservationId = reservationId;
+		this.reservationStatus = reservationStatus;
+		this.reservationType = reservationType;
+		this.reservationDate = reservationDate;
+		this.reservationTime = reservationTime;
+		this.source = source;
+		this.destination = destination;
+	}
 
 
 	public Reservation() {
@@ -118,8 +120,8 @@ public class Reservation {
 	}
 
 
-	public void setReservationTime(LocalTime reservationTime) {
-		this.reservationTime = reservationTime;
+	public void setReservationTime(String reservationTime) {
+		this.reservationTime = LocalTime.parse(reservationTime);
 	}
 
 

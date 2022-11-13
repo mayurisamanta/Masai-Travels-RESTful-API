@@ -9,9 +9,9 @@ import com.masai.model.Feedback;
 
 public interface IFeedbackService {
 
-	public Feedback addFeedback(Integer userLoginId, Integer busId, Feedback feedback,String key) throws FeedbackException, UserException, BusException;
+	public Feedback addFeedback( Integer busId, Feedback feedback,String key) throws FeedbackException, UserException, BusException;
 	
-	public Feedback updateFeedback(Integer feedbackId,Feedback feedback,String key) throws FeedbackException,UserException;
+	public Feedback updateFeedback(Feedback feedback,String key) throws FeedbackException,UserException;
 	
 	public Feedback viewFeedback(Integer feedbackId,String key) throws FeedbackException,UserException;
 	

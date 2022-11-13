@@ -81,7 +81,7 @@ public class ReservationServiceImpl implements ReservationService {
 			if (reservation.getDestination() != null) curr.setDestination(reservation.getDestination());
 			if (reservation.getReservationDate() != null) curr.setReservationDate(reservation.getReservationDate());
 			if (reservation.getReservationStatus() != null) curr.setReservationStatus(reservation.getReservationStatus());
-			if (reservation.getReservationTime() != null) curr.setReservationTime(reservation.getReservationTime());
+			if (reservation.getReservationTime() != null) curr.setReservationTime(reservation.getReservationTime().toString());
 			if (reservation.getReservationType() != null) curr.setReservationType(reservation.getReservationType());
 			if (reservation.getSource() != null) curr.setSource(reservation.getSource());
 			
