@@ -55,13 +55,11 @@ public class RouteServiceImpl implements RouteService{
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
 			
-			Optional<User> user = uRepo.findById(loggedInUser.getUserId());
+//			Optional<User> user = uRepo.findById(loggedInUser.getUserId());
 			
-			if(user.isPresent()) {
-				
 				Optional<Route> opt = rRepo.findById(route.getRouteId());
 				
-				
+				if(opt.isPresent()) {
 					   
 					 Route existingRoute = opt.get();
 					 
@@ -79,9 +77,6 @@ public class RouteServiceImpl implements RouteService{
 					 throw new RouteException("No route exist to update please save the route first..");
 				  }
 				
-		
-			
-	
 		   
 		}
 		else throw new UserException("Access denied");
@@ -103,11 +98,9 @@ public class RouteServiceImpl implements RouteService{
 		
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
-			Optional<User> user = uRepo.findById(loggedInUser.getUserId());
+			//Optional<User> user = uRepo.findById(loggedInUser.getUserId());
 			
 			
-			if(user.isPresent()) {
-				
 				Optional<Route> opt =	rRepo.findById(routeId);
 				
 				if(opt.isPresent()) {
@@ -122,9 +115,8 @@ public class RouteServiceImpl implements RouteService{
 				else {
 					throw new RouteException("No route found on this "+routeId+" id");
 				}
-			}
+			
 		}
-		
 		
 		throw new UserException("Access denied");
 		
@@ -142,7 +134,7 @@ public class RouteServiceImpl implements RouteService{
 		
 		Optional<User> user = uRepo.findById(loggedInUser.getUserId());
 		
-		if(user.isPresent()) {
+		if(user.isPresent() || loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
 			Optional<Route> opt =rRepo.findById(routeId);
 			
@@ -170,7 +162,7 @@ public class RouteServiceImpl implements RouteService{
 		
 		Optional<User> user = uRepo.findById(loggedInUser.getUserId());
 		
-		if(user.isPresent()) {
+		if(user.isPresent() || loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
 			List<Route> routeList = rRepo.findAll();
 			
@@ -181,7 +173,6 @@ public class RouteServiceImpl implements RouteService{
 				throw new RouteException("Route list is empty");
 			}
 		}
-		
 		
 		throw new UserException("Access declained... ");
 		
