@@ -97,15 +97,15 @@ Worked on Feedback module
 Worked on Admin and User module
 
 #### Manjunath Patil 
->Github:[btcpatil](https://github.com/btcpatil)
+>Github: [btcpatil](https://github.com/btcpatil)
 Worked on Route module
 
 #### Anshul Sharma
->Github:[Jhala26](https://github.com/Jhala26)
+>Github: [Jhala26](https://github.com/Jhala26)
 Worked on Reservation Module
 
 #### Sarthak Singh
->Github:[Sarthak0008](https://github.com/Sarthak0008)
+>Github: [Sarthak0008](https://github.com/Sarthak0008)
 Worked on Bus Module
 
 
