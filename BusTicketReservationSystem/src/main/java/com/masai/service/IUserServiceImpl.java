@@ -40,12 +40,19 @@ public class IUserServiceImpl implements IUserService{
 		if(loggedInUser==null) {
 			throw new UserException("Please provide a valid key to update user");
 		}
+		User curr=uRepo.findById(user.getUserLoginId())
+				.orElseThrow(()-> new UserException("User with User Id "+user.getUserLoginId()+" does not exist"));
+		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
+			if (user.getContact() != null) curr.setContact(user.getContact());
+			if (user.getEmail() != null) curr.setEmail(user.getEmail());
+			if (user.getFirstName() != null) curr.setFirstName(user.getFirstName());
+			if (user.getLastName() != null) curr.setLastName(user.getLastName());
+			if (user.getPassword() != null) curr.setPassword(user.getPassword());
+			if (user.getUserName() != null) curr.setUserName(user.getUserName());
+			User saved = uRepo.save(curr);
+			return saved;
+		}
 		if(user.getUserLoginId()==loggedInUser.getUserId()) {
-			
-			Optional<User> opt = uRepo.findById(user.getUserLoginId());
-
-			User curr = opt.get();
-			
 			if (user.getContact() != null) curr.setContact(user.getContact());
 			if (user.getEmail() != null) curr.setEmail(user.getEmail());
 			if (user.getFirstName() != null) curr.setFirstName(user.getFirstName());
@@ -58,7 +65,7 @@ public class IUserServiceImpl implements IUserService{
 			return saved;
 			
 		}
-		else throw new UserException("Invalid User Id");
+		else throw new UserException("Access denied.");
 				
 	}
 
@@ -70,16 +77,19 @@ public class IUserServiceImpl implements IUserService{
 		}
 		User u=uRepo.findById(userId)
 				.orElseThrow(()-> new UserException("User with User Id "+userId+" does not exist"));
+		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
+			uRepo.delete(u);
+			return u;
+		}
 		if(u.getUserLoginId()==loggedInUser.getUserId()) {
 			uRepo.delete(u);
 			srepo.delete(loggedInUser);
 			return u;
 		}
 		else {
-			throw new UserException("Invalid User details, please login first");
+			throw new UserException("Access denied.");
 		}
 		
-
 	}
 
 	@Override
