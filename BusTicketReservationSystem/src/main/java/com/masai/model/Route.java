@@ -23,7 +23,7 @@ public class Route {
 	private Integer distance;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "route")
 	private List<Bus> buslist;
 
 
