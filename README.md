@@ -48,7 +48,8 @@
 
 # Overview of Our work
 
-## **ER Diagram**
+## **Er Diagram** 
+*Er diagram of our project*
 </br>
 ![Er diagram](https://github.com/mayurisamanta/bright-thrill-6240/blob/main/Assets/erdiagram.png?raw=true)
 
