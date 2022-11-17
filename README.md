@@ -10,7 +10,7 @@
 
 > Masai Travels (bus ticket reservation system) application during the construct week at [Masai School](https://masaischool.com/). Completed the project in six days with a team of five aspiring developers.
 
-# 👉 [Click here](https://drive.google.com/file/d/19cj65rsSFDdzXQj6clvHNBgVTaLUvhZk/view?usp=sharing) to go through detail explanation of this application 
+<!-- # 👉 [Click here](https://drive.google.com/file/d/19cj65rsSFDdzXQj6clvHNBgVTaLUvhZk/view?usp=sharing) to go through detail explanation of this application  -->
 
 # Features
 
