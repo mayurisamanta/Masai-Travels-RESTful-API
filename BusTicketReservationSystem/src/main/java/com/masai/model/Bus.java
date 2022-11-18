@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Bus {
@@ -33,7 +36,18 @@ public class Bus {
 	
 	private Integer availabeSeats;
 
+	@ManyToOne
+	@JsonIgnore
+	private Route route;
 	
+
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
+	}
 
 	public Bus() {
 		super();

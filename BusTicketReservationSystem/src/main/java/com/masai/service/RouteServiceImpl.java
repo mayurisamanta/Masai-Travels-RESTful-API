@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.masai.exception.RouteException;
 import com.masai.exception.UserException;
+import com.masai.model.Bus;
 import com.masai.model.CurrentUserSession;
 import com.masai.model.Route;
 import com.masai.model.User;
@@ -32,11 +33,18 @@ public class RouteServiceImpl implements RouteService{
 	@Override
 	public Route addRoute(Route route,String key) throws RouteException, UserException {
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
+		
 		if(loggedInUser==null) {
 			throw new UserException("Please provide a valid key to view user.");
 		}
+		
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
+		List<Bus> busList =	route.getBuslist();
+		
+		for(Bus bus:busList) {
+			bus.setRoute(route);
+		}
 		
 			return  rRepo.save(route);
 		}

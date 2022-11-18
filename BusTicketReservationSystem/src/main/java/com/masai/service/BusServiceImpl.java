@@ -10,7 +10,9 @@ import com.masai.exception.BusException;
 import com.masai.exception.UserException;
 import com.masai.model.Bus;
 import com.masai.model.CurrentUserSession;
+import com.masai.model.Route;
 import com.masai.repository.BusDao;
+import com.masai.repository.RouteRepo;
 import com.masai.repository.SessionRepo;
 
 @Service
@@ -22,17 +24,36 @@ public class BusServiceImpl implements BusService{
 	@Autowired
 	private SessionRepo srepo;
 	
+	@Autowired
+	RouteRepo rrepo;
+	
 	@Override
 	public Bus addBus(Bus bus, String key)throws BusException, UserException{
+		
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
+		
 		if(loggedInUser==null) {
 			throw new UserException("Please provide a valid key to delete user.");
 		}
+		
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
+			
+			Route route =  rrepo.findByRouteFromAndRouteTo(bus.getRouteForm(), bus.getRouteTo());
+			
+			if(route!=null) {
+				
+				if(route.getBuslist().contains(bus)) {
+					throw new BusException("Bus already exists");
+				}
+				
+				bus.setRoute(route);
+				
+			}
+			
 			
 			return busdao.save(bus);
 		}
-		else throw new UserException("Access denied");
+		else throw new UserException("Unauthorized Access! Only Admin can make changes");
 		
 	}
 
@@ -66,7 +87,7 @@ public class BusServiceImpl implements BusService{
 				throw new BusException("Bus with id " + bus.getBusId() + "does not exist");
 			
 		}
-		else throw new UserException("Access denied");
+		else throw new UserException("Unauthorized Access! Only Admin can make changes");
 
 	}
 
@@ -87,7 +108,7 @@ public class BusServiceImpl implements BusService{
 
 			throw new BusException("bus doesn't exists with this "+busId+" id");
 		}
-		else throw new UserException("Access denied");
+		else throw new UserException("Unauthorized Access! Only Admin can make changes");
 		
 		
 	}
