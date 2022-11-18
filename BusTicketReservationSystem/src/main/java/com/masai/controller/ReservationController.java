@@ -91,7 +91,7 @@ public class ReservationController {
 	
 	
 	@PostMapping("/viewbydate")
-	public ResponseEntity<List<Reservation>> getAllReservationByDate(@Valid  @RequestParam("localdate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestParam String key) throws ReservationException, UserException{
+	public ResponseEntity<List<Reservation>> getAllReservationByDateHandler(@Valid  @RequestParam("localdate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @RequestParam String key) throws ReservationException, UserException{
 		
 		
 		System.out.println(date);

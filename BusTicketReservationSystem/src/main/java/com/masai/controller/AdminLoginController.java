@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.masai.exception.LoginException;
 import com.masai.model.AdminDto;
-import com.masai.model.LoginDTO;
 import com.masai.service.AdminLoginService;
-import com.masai.service.LoginService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
@@ -26,13 +24,13 @@ public class AdminLoginController {
 	private AdminLoginService lService;
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@Valid @RequestBody AdminDto dto) throws LoginException{
+	public ResponseEntity<String> adminLoginHandler(@Valid @RequestBody AdminDto dto) throws LoginException{
 		String msg=lService.logIntoAccount(dto);
 		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/logout")
-	public ResponseEntity<String> logout(@RequestParam(required = false) String key) throws LoginException{
+	public ResponseEntity<String> adminLogoutHandler(@RequestParam String key) throws LoginException{
 		String msg=lService.logOutFromAccount(key);
 		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}

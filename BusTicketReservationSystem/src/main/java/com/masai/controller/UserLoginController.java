@@ -23,13 +23,13 @@ public class UserLoginController {
 	private LoginService lService;
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@Valid @RequestBody LoginDTO dto) throws LoginException{
+	public ResponseEntity<String> userLoginHandler(@Valid @RequestBody LoginDTO dto) throws LoginException{
 		String msg=lService.logIntoAccount(dto);
 		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/logout")
-	public ResponseEntity<String> logout(@RequestParam String key) throws LoginException{
+	public ResponseEntity<String> userLogoutHandler(@RequestParam String key) throws LoginException{
 		String msg=lService.logOutFromAccount(key);
 		return new ResponseEntity<String>(msg,HttpStatus.ACCEPTED);
 	}

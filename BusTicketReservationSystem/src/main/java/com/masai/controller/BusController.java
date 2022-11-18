@@ -74,7 +74,7 @@ public class BusController {
 	}
 	
 	@GetMapping("/viewAllBus")
-	public ResponseEntity<List<Bus>> viewAllBus(@RequestParam String key) throws BusException, UserException{
+	public ResponseEntity<List<Bus>> viewAllBusHandler(@RequestParam String key) throws BusException, UserException{
 		
 		List<Bus> viewAllBus = busService.viewAllBus(key);
 		
