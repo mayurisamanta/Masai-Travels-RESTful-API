@@ -29,31 +29,31 @@ public class UserController {
 	private IUserService uService;
 
 	@PostMapping("/add")
-	public ResponseEntity<User> addUser(@Valid @RequestBody User user) throws UserException {
+	public ResponseEntity<User> addUserHandler(@Valid @RequestBody User user) throws UserException {
 		User u=uService.addUser(user);
 		return new ResponseEntity<User>(u,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<User> updateUser(@Valid @RequestBody User user,@RequestParam String key) throws UserException {
+	public ResponseEntity<User> updateUserHandler(@Valid @RequestBody User user,@RequestParam String key) throws UserException {
 		User u=uService.updateUser(user,key);
 		return new ResponseEntity<User>(u,HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("delete/{userId}")
-	public ResponseEntity<User> deleteUser(@PathVariable("userId") Integer userId,@RequestParam String key) throws UserException {
+	public ResponseEntity<User> deleteUserHandler(@PathVariable("userId") Integer userId,@RequestParam String key) throws UserException {
 		User u=uService.deleteUser(userId, key);
 		return new ResponseEntity<User>(u,HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/view/{userId}")
-	public ResponseEntity<User> viewUser(@PathVariable("userId") Integer userId,@RequestParam String key) throws UserException {
+	public ResponseEntity<User> viewUserHandler(@PathVariable("userId") Integer userId,@RequestParam String key) throws UserException {
 		User u=uService.viewUser(userId,key);
 		return new ResponseEntity<User>(u,HttpStatus.FOUND);
 	}
 	
 	@GetMapping("/viewall")
-	public ResponseEntity<List<User>> viewAllUsers(@RequestParam String key) throws UserException {
+	public ResponseEntity<List<User>> viewAllUsersHandler(@RequestParam String key) throws UserException {
 		List<User> users=uService.viewAllUsers(key);
 		return new ResponseEntity<List<User>>(users,HttpStatus.FOUND);
 	}

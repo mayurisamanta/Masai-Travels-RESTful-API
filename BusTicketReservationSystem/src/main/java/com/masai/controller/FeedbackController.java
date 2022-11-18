@@ -38,7 +38,7 @@ public class FeedbackController {
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Feedback> updateRoute( @Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException,UserException{
+	public ResponseEntity<Feedback> updateRouteHandler( @Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException,UserException{
 		
 		Feedback f = fservice.updateFeedback(feedback,key);
 		
@@ -47,7 +47,7 @@ public class FeedbackController {
 	}
 	
 	@GetMapping("/view/{feedbackId}")
-	public ResponseEntity<Feedback> viewRoute(@PathVariable("feedbackId") Integer feedbackId,@RequestParam String key) throws FeedbackException,UserException{
+	public ResponseEntity<Feedback> viewRouteHandler(@PathVariable("feedbackId") Integer feedbackId,@RequestParam String key) throws FeedbackException,UserException{
 		
 		Feedback f = fservice.viewFeedback(feedbackId,key);
 		
@@ -55,7 +55,7 @@ public class FeedbackController {
 	}
 	
 	@GetMapping("/viewAll")
-	public ResponseEntity<List<Feedback>> viewAllRoute(@RequestParam String key) throws FeedbackException,UserException{
+	public ResponseEntity<List<Feedback>> viewAllRouteHandler(@RequestParam String key) throws FeedbackException,UserException{
 		
 		List<Feedback> f = fservice.viewAllFeedback(key);
 		
