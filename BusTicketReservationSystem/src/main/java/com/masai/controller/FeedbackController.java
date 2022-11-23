@@ -30,7 +30,7 @@ public class FeedbackController {
 	private IFeedbackServiceImpl fservice;
 	
 	@PostMapping("/add/{busId}")
-    public ResponseEntity<Feedback> addRouteHandler( @PathVariable("busId") Integer busId,@Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException, UserException, BusException {
+    public ResponseEntity<Feedback> addFeedbackHandler( @PathVariable("busId") Integer busId,@Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException, UserException, BusException {
 		
 		Feedback f = fservice.addFeedback( busId, feedback,key);
 		
@@ -38,7 +38,7 @@ public class FeedbackController {
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Feedback> updateRouteHandler( @Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException,UserException{
+	public ResponseEntity<Feedback> updateFeedbackHandler( @Valid @RequestBody Feedback feedback,@RequestParam String key) throws FeedbackException,UserException{
 		
 		Feedback f = fservice.updateFeedback(feedback,key);
 		
@@ -47,7 +47,7 @@ public class FeedbackController {
 	}
 	
 	@GetMapping("/view/{feedbackId}")
-	public ResponseEntity<Feedback> viewRouteHandler(@PathVariable("feedbackId") Integer feedbackId,@RequestParam String key) throws FeedbackException,UserException{
+	public ResponseEntity<Feedback> viewFeedbackHandler(@PathVariable("feedbackId") Integer feedbackId,@RequestParam String key) throws FeedbackException,UserException{
 		
 		Feedback f = fservice.viewFeedback(feedbackId,key);
 		
@@ -55,7 +55,7 @@ public class FeedbackController {
 	}
 	
 	@GetMapping("/viewAll")
-	public ResponseEntity<List<Feedback>> viewAllRouteHandler(@RequestParam String key) throws FeedbackException,UserException{
+	public ResponseEntity<List<Feedback>> viewAllFeedbackHandler(@RequestParam String key) throws FeedbackException,UserException{
 		
 		List<Feedback> f = fservice.viewAllFeedback(key);
 		
