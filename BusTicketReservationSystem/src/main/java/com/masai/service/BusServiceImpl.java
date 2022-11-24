@@ -119,6 +119,10 @@ public class BusServiceImpl implements BusService{
 			Optional<Bus> opt=	busdao.findById(busId);
 			if(opt.isPresent()) {
 				Bus exbus=opt.get();
+				
+				if (exbus.getAvailabeSeats() != exbus.getSeats()) 
+					throw new BusException("Cannot update Bus already scheduled");
+				
 					busdao.delete(exbus);
 					return exbus;
 				}

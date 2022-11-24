@@ -53,7 +53,7 @@ public class User {
 	private String email;
 	
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Reservation reservation;
 
 }

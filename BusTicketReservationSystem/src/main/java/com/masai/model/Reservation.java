@@ -29,8 +29,10 @@ public class Reservation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer reservationId;
 	
+	@JsonIgnore
 	private String reservationStatus;
 	
+	@JsonIgnore
 	private String reservationType;
 	
 	@Future(message = "Date should not be in past *")
@@ -41,6 +43,7 @@ public class Reservation {
 	
 //	@NotNull(message = "Reservation Time is mandatory *")
 //	@JsonFormat(pattern = "hh-mm-ss", shape = Shape.STRING)
+	@JsonIgnore
 	private LocalTime reservationTime;
 	
 //	@NotNull(message = "Reservation source is mandatory *")

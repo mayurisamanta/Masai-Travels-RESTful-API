@@ -54,6 +54,17 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		Bus b = bdao.findById(busId).orElseThrow(() -> new BusException("Bus with Id " + busId + " not found"));
 		
+		if (!reservation.getSource().equalsIgnoreCase(b.getRouteForm()) || !reservation.getDestination().equalsIgnoreCase(b.getRouteTo()))
+			throw new ReservationException("Bus is not available for this route");
+		
+		if (b.getAvailabeSeats() <= 0) throw new ReservationException("Seats are not available");
+		
+		
+		b.setAvailabeSeats(b.getAvailabeSeats() - 1);
+		
+		reservation.setReservationType("Online");
+		reservation.setReservationStatus("Booked");
+		reservation.setReservationTime(LocalTime.now().toString());
 		reservation.setBus(b);
 		
 		u.setReservation(reservation);
@@ -120,6 +131,10 @@ public class ReservationServiceImpl implements ReservationService {
 			Optional<User> u = uRepo.findById(loggedInUser.getUserId());
 			
 			User currUser = u.get();
+			
+			Bus b = bdao.findById(currUser.getReservation().getBus().getBusId()).orElseThrow(() -> new ReservationException("Bus with Id " + currUser.getReservation().getBus().getBusId() + " not found"));
+			b.setAvailabeSeats(b.getAvailabeSeats()+1);
+			
 			currUser.setReservation( null);
 			
 			rDao.delete(existingReservation);

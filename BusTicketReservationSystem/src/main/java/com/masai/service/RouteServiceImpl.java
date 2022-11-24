@@ -127,6 +127,9 @@ public class RouteServiceImpl implements RouteService{
 					
 					Route rot = opt.get();
 					
+					if (!rot.getBuslist().isEmpty())
+						 throw new RouteException("Cannot update Route ! Already buses are Scheduled for this route");
+					
 					rRepo.delete(rot);
 					
 					return rot;

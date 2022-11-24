@@ -38,7 +38,7 @@ public class Bus {
 	private Integer availabeSeats;
 
 	@ManyToOne
-//	@JsonIgnore
+	@JsonIgnore
 	private Route route;
 	
 
