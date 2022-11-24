@@ -29,8 +29,9 @@
 
 - Java
 - MySQL
-- Hibernate with JPA
 - Springboot
+- Spring data JPA
+- Hibernate
 - Swagger
 - Lombok
 - Maven
