@@ -14,18 +14,16 @@
 
 # Features
 
-- Admin can login his username and password
+- User and Admin authentication and validation using session uuid
 - Admin can provide details like Bus Name, Bus Route, Bus Type –AC/non-AC, seats, departure time and arrival time
 - Admin can provide details of route
 - Admin can provide the confirmation of the seat to the User
 - User can register by giving all the details
-- User can login his username and password
 - User can book ticket by selecting Source and destination
 - User can give feedback for bus experience
 - User can cancel reservation
 
 # Technology used 
-
 
 - Java
 - MySQL
@@ -39,6 +37,16 @@
 - Postman
 - Spring tool suite eclipse
 - Git & GitHub
+
+# Modules
+
+- Login Logout Module
+- Admin Module
+- User Module
+- Route Module
+- Bus Module
+- Reservation Module
+- Feedback Module
 
 # Lessons Learned
 
