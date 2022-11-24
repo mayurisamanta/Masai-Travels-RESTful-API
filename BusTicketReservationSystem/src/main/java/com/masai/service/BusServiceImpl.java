@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.masai.exception.BusException;
+import com.masai.exception.RouteException;
 import com.masai.exception.UserException;
 import com.masai.model.Bus;
 import com.masai.model.CurrentUserSession;
@@ -33,7 +34,7 @@ public class BusServiceImpl implements BusService{
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to delete user.");
+			throw new UserException("Please provide a valid key to add Bus");
 		}
 		
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
@@ -45,15 +46,14 @@ public class BusServiceImpl implements BusService{
 				if(route.getBuslist().contains(bus)) {
 					throw new BusException("Bus already exists");
 				}
-				
+				route.getBuslist().add(bus);
 				bus.setRoute(route);
-				
+				return busdao.save(bus);
 			}
-			
-			
-			return busdao.save(bus);
+			else throw new BusException("Cannot find route for adding Bus");
+
 		}
-		else throw new UserException("Unauthorized Access! Only Admin can make changes");
+		else throw new UserException("Unauthorized Access! Only Admin can add bus");
 		
 	}
 
@@ -62,12 +62,25 @@ public class BusServiceImpl implements BusService{
 		
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to delete user.");
+			throw new UserException("Please provide a valid key to update Bus");
 		}
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			Optional<Bus> opt=	busdao.findById(bus.getBusId());
 			if(opt.isPresent()) {
-			Bus curr = opt.get();
+				Bus curr = opt.get();
+				
+				if (curr.getAvailabeSeats() != curr.getSeats()) 
+					throw new BusException("Cannot update Bus already scheduled");
+				
+				Route route =  rrepo.findByRouteFromAndRouteTo(curr.getRouteForm(), curr.getRouteTo());
+				
+				if (bus.getRouteForm() != null && bus.getRouteTo() != null) {
+					 route = rrepo.findByRouteFromAndRouteTo(bus.getRouteForm(), bus.getRouteTo());
+					
+					
+					if (route == null) 
+						throw new BusException("Invalid route details");
+				}
 			
 				if (bus.getArrivalTime() != null) curr.setArrivalTime(bus.getArrivalTime().toString());
 				if (bus.getAvailabeSeats() != null) curr.setAvailabeSeats(bus.getAvailabeSeats());
@@ -79,7 +92,11 @@ public class BusServiceImpl implements BusService{
 				if (bus.getRouteTo() != null) curr.setRouteTo(bus.getRouteTo());
 				if (bus.getSeats() != null) curr.setSeats(bus.getSeats());
 				
+				
+				
 				Bus updated = busdao.save(curr);
+				route.getBuslist().add(updated);
+				route.getBuslist().remove(bus);
 				
 				return updated;
 			
@@ -96,7 +113,7 @@ public class BusServiceImpl implements BusService{
 		
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to delete bus");
+			throw new UserException("Please provide a valid key to delete Bus");
 		}
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			Optional<Bus> opt=	busdao.findById(busId);
@@ -108,7 +125,7 @@ public class BusServiceImpl implements BusService{
 
 			throw new BusException("bus doesn't exists with this "+busId+" id");
 		}
-		else throw new UserException("Unauthorized Access! Only Admin can make changes");
+		else throw new UserException("Unauthorized Access! Only Admin can delete Bus");
 		
 		
 	}

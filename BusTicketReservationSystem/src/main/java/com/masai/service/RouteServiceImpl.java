@@ -1,5 +1,6 @@
 package com.masai.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +25,9 @@ public class RouteServiceImpl implements RouteService{
 	
 	@Autowired
 	private SessionRepo srepo;
-	
-	@Autowired
-	private UserRepo uRepo;
+//	
+//	@Autowired
+//	private UserRepo uRepo;
 	
 	
 
@@ -35,16 +36,24 @@ public class RouteServiceImpl implements RouteService{
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to view user.");
+			throw new UserException("Please provide a valid key to add Route");
 		}
 		
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
-		List<Bus> busList =	route.getBuslist();
-		
-		for(Bus bus:busList) {
-			bus.setRoute(route);
-		}
+			Route newRoute = rRepo.findByRouteFromAndRouteTo(route.getRouteFrom(), route.getRouteTo());
+			
+			if (newRoute != null)
+				throw new RouteException("Route from : " + route.getRouteFrom() + " to " + route.getRouteTo() + " already exists" );
+			
+//			List<Bus> busList =	route.getBuslist();
+//			
+//			for(Bus bus:busList) {
+//				bus.setRoute(route);
+//			}
+			
+			List<Bus> busList = new ArrayList<>();
+			route.setBuslist(busList);
 		
 			return  rRepo.save(route);
 		}
@@ -57,7 +66,7 @@ public class RouteServiceImpl implements RouteService{
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to update user");
+			throw new UserException("Please provide a valid key to update Route");
 		}
 		
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
@@ -71,10 +80,13 @@ public class RouteServiceImpl implements RouteService{
 					   
 					 Route existingRoute = opt.get();
 					 
+					 if (!existingRoute.getBuslist().isEmpty())
+						 throw new RouteException("Cannot update Route ! Already buses are Scheduled for this route");
+					 
 					 if (route.getDistance() != null) existingRoute.setDistance(route.getDistance());
 					 if (route.getRouteFrom() != null) existingRoute.setRouteFrom(route.getRouteFrom());
 					 if (route.getRouteTo() != null) existingRoute.setRouteTo(route.getRouteTo());
-					 if (route.getBuslist() != null) existingRoute.setBuslist(route.getBuslist());
+//					 if (route.getBuslist() != null) existingRoute.setBuslist(route.getBuslist());
 					 
 					Route saved =  rRepo.save(existingRoute);
 					
@@ -82,7 +94,7 @@ public class RouteServiceImpl implements RouteService{
 					   
 				  }
 				  else {
-					 throw new RouteException("No route exist to update please save the route first..");
+					 throw new RouteException("No route exist to update please save the Route first");
 				  }
 				
 		   
@@ -101,7 +113,7 @@ public class RouteServiceImpl implements RouteService{
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to delete route");
+			throw new UserException("Please provide a valid key to delete Route");
 		}
 		
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
@@ -137,12 +149,12 @@ public class RouteServiceImpl implements RouteService{
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to view route");
+			throw new UserException("Please provide a valid key to view Route");
 		}	
 		
-		Optional<User> user = uRepo.findById(loggedInUser.getUserId());
-		
-		if(user.isPresent() || loggedInUser.getType().equalsIgnoreCase("Admin")) {
+//		Optional<User> user = uRepo.findById(loggedInUser.getUserId());
+//		
+//		if(user.isPresent() || loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
 			Optional<Route> opt =rRepo.findById(routeId);
 			
@@ -153,9 +165,9 @@ public class RouteServiceImpl implements RouteService{
 		     else {
 		    	 throw new RouteException("No route found on this "+routeId+" id");
 		     }
-		}
-		
-		throw new UserException("Access declained... ");
+//		}
+//		
+//		throw new UserException("Access declained... ");
 			
 	}
 
@@ -165,12 +177,12 @@ public class RouteServiceImpl implements RouteService{
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		
 		if(loggedInUser==null) {
-			throw new UserException("Please provide a valid key to view route");
+			throw new UserException("Please provide a valid key to view Route");
 		}	
 		
-		Optional<User> user = uRepo.findById(loggedInUser.getUserId());
-		
-		if(user.isPresent() || loggedInUser.getType().equalsIgnoreCase("Admin")) {
+//		Optional<User> user = uRepo.findById(loggedInUser.getUserId());
+//		
+//		if(user.isPresent() || loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
 			List<Route> routeList = rRepo.findAll();
 			
@@ -180,9 +192,9 @@ public class RouteServiceImpl implements RouteService{
 			}else {
 				throw new RouteException("Route list is empty");
 			}
-		}
-		
-		throw new UserException("Access declained... ");
+//		}
+//		
+//		throw new UserException("Access declained... ");
 		
 	}
 

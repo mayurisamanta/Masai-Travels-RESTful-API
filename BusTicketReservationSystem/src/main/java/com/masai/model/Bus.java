@@ -3,6 +3,7 @@ package com.masai.model;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,7 +38,7 @@ public class Bus {
 	private Integer availabeSeats;
 
 	@ManyToOne
-	@JsonIgnore
+//	@JsonIgnore
 	private Route route;
 	
 

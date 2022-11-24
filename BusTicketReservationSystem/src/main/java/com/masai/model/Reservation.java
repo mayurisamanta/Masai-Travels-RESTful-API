@@ -53,7 +53,7 @@ public class Reservation {
 	
 
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Bus bus;
 
 

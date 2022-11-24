@@ -117,6 +117,10 @@ public class ReservationServiceImpl implements ReservationService {
 			
 			
 			Reservation existingReservation = opt.get();
+			Optional<User> u = uRepo.findById(loggedInUser.getUserId());
+			
+			User currUser = u.get();
+			currUser.setReservation( null);
 			
 			rDao.delete(existingReservation);
 			
