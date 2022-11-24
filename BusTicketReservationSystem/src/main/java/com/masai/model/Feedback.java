@@ -51,11 +51,11 @@ public class Feedback {
 	private LocalDate feedbackDate;
 	
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private User user;
 	
 	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Bus bus;
 
 	@Override

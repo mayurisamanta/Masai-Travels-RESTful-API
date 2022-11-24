@@ -121,7 +121,7 @@ public class BusServiceImpl implements BusService{
 				Bus exbus=opt.get();
 				
 				if (exbus.getAvailabeSeats() != exbus.getSeats()) 
-					throw new BusException("Cannot update Bus already scheduled");
+					throw new BusException("Cannot delete Bus already scheduled");
 				
 					busdao.delete(exbus);
 					return exbus;
