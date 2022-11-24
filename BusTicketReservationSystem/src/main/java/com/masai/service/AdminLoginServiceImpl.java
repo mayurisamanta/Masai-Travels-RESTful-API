@@ -25,11 +25,11 @@ public class AdminLoginServiceImpl implements AdminLoginService{
 		// TODO Auto-generated method stub
 		Admin adm=new Admin();
 		if(!adm.username.equalsIgnoreCase(dto.getUserName())) {
-			throw new LoginException("Please Enter a valid username.");
+			throw new LoginException("Please Enter a valid Username");
 		}
 		Optional<CurrentUserSession> validUserSessionOpt =sRepo.findById(adm.id);
 		if(validUserSessionOpt.isPresent()) {
-			throw new LoginException("User already Logged in with this username.");
+			throw new LoginException("Admin already Logged in with this Username");
 		}
 		if(adm.password.equals(dto.getPassword())) {
 			String key=RandomString.make(6);
@@ -37,19 +37,19 @@ public class AdminLoginServiceImpl implements AdminLoginService{
 			sRepo.save(currentUserSession);
 			return currentUserSession.toString();
 		}else {
-			throw new LoginException("Please Enter a valid password");
+			throw new LoginException("Please Enter a valid Password");
 		}
 	}
 
 	@Override
 	public String logOutFromAccount(String key) throws LoginException {
-CurrentUserSession validUserSession=sRepo.findByUuid(key);
+		CurrentUserSession validUserSession=sRepo.findByUuid(key);
 		
 		if(validUserSession==null) {
-			throw new LoginException("User not logged in with this username.");
+			throw new LoginException("Admin not logged in with this Username.");
 		}
 		sRepo.delete(validUserSession);
-		return "Logged out successfully.";
+		return "Logged out successfully";
 	}
 
 }
