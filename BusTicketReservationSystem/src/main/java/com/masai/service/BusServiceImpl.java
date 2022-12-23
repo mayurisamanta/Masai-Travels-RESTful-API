@@ -16,6 +16,7 @@ import com.masai.repository.BusDao;
 import com.masai.repository.RouteRepo;
 import com.masai.repository.SessionRepo;
 
+//this method is implementing bus service interface
 @Service
 public class BusServiceImpl implements BusService{
 
@@ -28,24 +29,30 @@ public class BusServiceImpl implements BusService{
 	@Autowired
 	RouteRepo rrepo;
 	
+//	overriding method implement add bus method
 	@Override
 	public Bus addBus(Bus bus, String key)throws BusException, UserException{
 		
 		CurrentUserSession loggedInUser=srepo.findByUuid(key);
 		
+//		if user is not login it will throw exception
 		if(loggedInUser==null) {
 			throw new UserException("Please provide a valid key to add Bus");
 		}
 		
+//		if user is Admin then you are allowed to add bus
+		
 		if (loggedInUser.getType().equalsIgnoreCase("Admin")) {
 			
+//			finding route is present or not
 			Route route =  rrepo.findByRouteFromAndRouteTo(bus.getRouteForm(), bus.getRouteTo());
 			
 			if(route!=null) {
-				
+//				if contains bus with same details throw bus exception
 				if(route.getBuslist().contains(bus)) {
 					throw new BusException("Bus already exists");
 				}
+//				if not present then add bus to buslist
 				route.getBuslist().add(bus);
 				bus.setRoute(route);
 				return busdao.save(bus);
@@ -56,6 +63,8 @@ public class BusServiceImpl implements BusService{
 		else throw new UserException("Unauthorized Access! Only Admin can add bus");
 		
 	}
+	
+//	overriding method implement add update bus method
 
 	@Override
 	public Bus updateBus(Bus bus, String key)throws BusException, UserException{
@@ -77,7 +86,7 @@ public class BusServiceImpl implements BusService{
 				if (bus.getRouteForm() != null && bus.getRouteTo() != null) {
 					 route = rrepo.findByRouteFromAndRouteTo(bus.getRouteForm(), bus.getRouteTo());
 					
-					
+//		if route not found it will throw bus exception			
 					if (route == null) 
 						throw new BusException("Invalid route details");
 				}
