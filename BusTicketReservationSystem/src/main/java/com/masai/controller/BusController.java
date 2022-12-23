@@ -29,6 +29,8 @@ public class BusController {
 	@Autowired
 	private BusServiceImpl busService;
 	
+//	adding bus by post method
+	
 	@PostMapping("/add")
 	public ResponseEntity<Bus> addBusHandler(@RequestBody Bus bus,@RequestParam String key)throws BusException, UserException{
 		
