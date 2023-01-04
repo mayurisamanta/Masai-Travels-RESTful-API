@@ -8,9 +8,7 @@
 
 > It has 6 modules Admin, User, Reservation, Bus, Route and Feedback.
 
-> Masai Travels (bus ticket reservation system) application during the construct week at [Masai School](https://masaischool.com/). Completed the project in six days with a team of five aspiring developers.
-
-<!-- # 👉 [Click here](https://drive.google.com/file/d/19cj65rsSFDdzXQj6clvHNBgVTaLUvhZk/view?usp=sharing) to go through detail explanation of this application  -->
+> Masai Travels (bus ticket reservation system) application during the construct week at [Masai School](https://masaischool.com/). Completed the project in five days with a team of five aspiring developers.
 
 # Features
 
@@ -27,13 +25,13 @@
 
 - Java
 - MySQL
-- Springboot
+- Spring Boot
 - Spring data JPA
+- RESTful api
 - Hibernate
 - Swagger
 - Lombok
 - Maven
-- Restful api
 - Postman
 - Spring tool suite eclipse
 - Git & GitHub
@@ -50,8 +48,8 @@
 
 # Lessons Learned
 
-- Gain excessive knowledge on application of Java, MySQL and springboot.
-- Gain knowledge on creating and using API.
+- Gain excessive knowledge on application of Java, MySQL and SpringBoot.
+- Gain knowledge on creating RESTful API.
 - Got to know how to collabrate with team members.
 - Enjoyed the process of learning and creating the application.
 
