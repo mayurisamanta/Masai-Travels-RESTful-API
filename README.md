@@ -1,5 +1,3 @@
-# bright-thrill-6240
-
 ![Logo](https://github.com/mayurisamanta/bright-thrill-6240/blob/main/Assets/logo.png?raw=true)
 
 # Masai Travels
