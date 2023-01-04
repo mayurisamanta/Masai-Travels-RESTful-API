@@ -2,11 +2,11 @@
 
 # Masai Travels
 
-> Masai Travels (bus ticket reservation system) is an java application designed to provide customers with a personalized easy-to-utilize user experience for booking and purchasing tickets online. It stores customers' personal data records, scheduled routes, frequent trips, drop points, and other information.
+> Masai Travels (bus ticket reservation system) is an RESTful web service designed to provide customers with a personalized easy-to-utilize user experience for booking and purchasing tickets online. It stores customers' personal data records, scheduled routes, frequent trips, drop points, and other information.
 
 > It has 6 modules Admin, User, Reservation, Bus, Route and Feedback.
 
-> Masai Travels (bus ticket reservation system) application during the construct week at [Masai School](https://masaischool.com/). Completed the project in five days with a team of five aspiring developers.
+> Masai Travels (Bus ticket reservation system) application during the construct week at [Masai School](https://masaischool.com/). Completed the project in five days with a team of five aspiring developers.
 
 # Features
 
