@@ -58,10 +58,15 @@
 </br>
 ![Er diagram](https://github.com/mayurisamanta/bright-thrill-6240/blob/main/Assets/erdiagram.png?raw=true)
 
-## **Admin Module** 
-*Admin can login by using username (Admin) and password (1234)*
+## **All Modules** 
+*All modules of our project*
 </br>
-![Admin Module](https://github.com/mayurisamanta/bright-thrill-6240/blob/main/Assets/admin.png?raw=true)
+![Er diagram](https://github.com/mayurisamanta/Masai-Travels-RESTful-API/blob/main/Assets/All_Modules.jpg?raw=true)
+
+## **Admin Module** 
+*Admin can login by using username (admin) and password (admin1234)*
+</br>
+![Admin Module](https://github.com/mayurisamanta/Masai-Travels-RESTful-API/blob/main/Assets/Admin_Module.jpg?raw=true)
 
 
 ## **User Module**
@@ -69,27 +74,27 @@
 </br>
 *Customer can login with earlier provided username and password*
 </br>
-![User Module](https://github.com/mayurisamanta/bright-thrill-6240/blob/main/Assets/user.png?raw=true)
+![User Module](https://github.com/mayurisamanta/Masai-Travels-RESTful-API/blob/main/Assets/User_Module.jpg?raw=true)
 
 ## **Bus Module** 
 *Admin can add Bus by providing neccessary details*
 </br>
-![Bus Module*](https://github.com/mayurisamanta/bright-thrill-6240/blob/main/Assets/bus.png?raw=true)
+![Bus Module*](https://github.com/mayurisamanta/Masai-Travels-RESTful-API/blob/main/Assets/Bus_Module.jpg?raw=true)
 
 ## **Route Module**
 *Admin can add Route by providing neccessary details*
 </br>
-![Route Module](https://github.com/mayurisamanta/bright-thrill-6240/blob/main/Assets/route.png?raw=true)
+![Route Module](https://github.com/mayurisamanta/Masai-Travels-RESTful-API/blob/main/Assets/Route_Module.jpg?raw=true)
 
 ## **Reservation Module**
 *User can book Reservation by selecting Source and destination*
 </br>
-![Reservation Module](https://github.com/mayurisamanta/bright-thrill-6240/blob/main/Assets/reservation.png?raw=true)
+![Reservation Module](https://github.com/mayurisamanta/Masai-Travels-RESTful-API/blob/main/Assets/Reservation_Module.jpg?raw=true)
 
 ## **Feedback Module**
 *User can give feedback for bus experience*
 </br>
-![Feedback Module](https://github.com/mayurisamanta/bright-thrill-6240/blob/main/Assets/feedback.png?raw=true)
+![Feedback Module](https://github.com/mayurisamanta/Masai-Travels-RESTful-API/blob/main/Assets/Feedback_Module.jpg?raw=true)
 
 # Contributor
 
