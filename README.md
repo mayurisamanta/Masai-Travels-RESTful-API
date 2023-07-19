@@ -8,6 +8,8 @@
 
 > Masai Travels (Bus ticket reservation system) application during the construct week at [Masai School](https://masaischool.com/). Completed the project in five days with a team of five aspiring developers.
 
+# 👉 [Click here](https://drive.google.com/drive/folders/1tQn3oJP_2FBNzV-GOHlN1JWGx-RyNB2f?usp=drive_link) to go through detail explanation of this application
+
 # Features
 
 - User and Admin authentication and validation using session uuid
@@ -95,6 +97,26 @@
 *User can give feedback for bus experience*
 </br>
 ![Feedback Module](https://github.com/mayurisamanta/Masai-Travels-RESTful-API/blob/main/Assets/Feedback_Module.jpg?raw=true)
+
+# How To Run Our Project In Your Machine
+
+1. Clone our Project into your system
+    - Go to the folder location you want to clone
+    - Open terminal 
+    - Run command ``` git clone https://github.com/mayurisamanta/Masai-Travels-RESTful-API.git ```
+2. Open your preferred Integrated Development Environment (IDE) such as Spring Tool Suite (STS) or IntelliJ IDEA.
+3. Import the cloned project into your IDE:
+   - In STS, click on "File" in the top menu, then select "Import"
+   - In IntelliJ IDEA, click on "File" in the top menu, then select "Open"
+4. Select the project directory where you cloned the repository ```BusTicketReservationSystem``` and click "OK" or "Open" to import the project.
+5. You can run this project with MySQL db or H2 db
+    - For MySQL, replace all the values under ```db specific properties``` and comment all specifications under ```H2 db``` in ```application.properties```
+    - For H2, you can use the same or replace the values
+6. Build the project and run ```BusTicketReservationSystemApplication```
+7. To access database
+    - For MySQL, you can use ```terminal``` as shown in explanation video or ```MySQL Workbench```
+    - For H2, go to ```http://localhost:8008/h2-console/``` and fill proper details mentioned in ```application.properties``` under ```H2 db```
+8. Open Swagger UI ```http://localhost:8008/swagger-ui/#/``` and execute the end points as in explanation video
 
 # Contributor
 
